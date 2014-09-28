@@ -1,0 +1,41 @@
+{
+  "name": "ht-schema",
+  "version": "0.0.1",
+  "description": "ht-schema",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hudson-taylor/ht-schema.git"
+  },
+  "keywords": [
+    "schema",
+    "json",
+    "validate",
+    "validator"
+  ],
+  "author": "Hudson-Taylor developers",
+  "contributors": [
+    {
+      "name": "Pomke",
+      "email": "pomke@pomke.com"
+    },
+    {
+      "name": "Adam Brady",
+      "email": "adam@boxxen.org"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hudson-taylor/ht-schema/issues"
+  },
+  "homepage": "https://github.com/hudson-taylor/ht-schema",
+  "dependencies": {
+    "isemail": "^1.1.1"
+  }
+}
