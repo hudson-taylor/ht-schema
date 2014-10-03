@@ -4,7 +4,7 @@
 var DELETEKEY = require("../lib/deleteKey");
 
 function anyParser(args, childValidators, data) {
-    if(data === null && args.opt) return DELETEKEY;
+    if(data === undefined && args.opt) return DELETEKEY;
     return data;
 }
 
