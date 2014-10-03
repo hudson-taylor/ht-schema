@@ -1,15 +1,19 @@
-var assert  = require('assert');
-var s       = require('../index');
+
+"use strict";
+
+var assert = require("assert");
+
+var s = require("../index");
 
 describe("Schemas", function() {
 
     describe("Object validator", function() {
 
-        var ceilingCat  = { name: "Pixel", colour: "purple" };
-        var specialCat  = { name: "Pixel", colour: "purple", lasers: true };
-        var purryCat    = { name: "Pixel", colour: "purple", goes:   'purr' };
-        var catOwner    = { name: "Bea",   cat:    ceilingCat };
-        var basementCat = { name: "Penny" };
+        var ceilingCat  = { name: "Pixel", colour: "purple"                  };
+        var specialCat  = { name: "Pixel", colour: "purple",  lasers: true   };
+        var purryCat    = { name: "Pixel", colour: "purple",  goes:   "purr" };
+        var catOwner    = { name: "Bea",   cat:    ceilingCat                };
+        var basementCat = { name: "Penny"                                    };
 
         it("should accept a strictly valid object", function() {
             var catSchema = s.Object({
@@ -39,10 +43,10 @@ describe("Schemas", function() {
 
         it("should rename attributes with keys of the form 'foo as bar'", function() {
             var schema = s.Object({
-                'name as catName': s.String(),
+                "name as catName": s.String(),
                 colour:            s.String()
             });
-            assert.equal(schema.validate(ceilingCat).catName, 'Pixel');
+            assert.equal(schema.validate(ceilingCat).catName, "Pixel");
         });
 
 
@@ -50,8 +54,8 @@ describe("Schemas", function() {
             var catSchemaPermissiveWithStar = s.Object({ strict: false }, {
                 name: s.String(),
                 colour: s.String(),
-                '*': s.String({
-                    enum: [ 'meow', 'purr' ]
+                "*": s.String({
+                    enum: [ "meow", "purr" ]
                 })
             });
             assert.throws(function() {
@@ -65,7 +69,7 @@ describe("Schemas", function() {
                 name:   s.String({ opt: true }),
                 colour: s.String()
             });
-            var data = { colour: 'blue' };
+            var data = { colour: "blue" };
             var out  = catSchema.validate(data);
             assert.deepEqual(out, data);
         });
@@ -80,9 +84,9 @@ describe("Schemas", function() {
 
         it("should use default value if missing key (or value)", function() {
             var catSchema = s.Object({}, {
-                name: s.String({ default: 'something' })
+                name: s.String({ default: "something" })
             });
-            assert.deepEqual(catSchema.validate({}), { name: 'something' });
+            assert.deepEqual(catSchema.validate({}), { name: "something" });
         });
 
         it("should be composible", function() {
@@ -182,7 +186,7 @@ describe("Schemas", function() {
         it("should reject a number greater than max", function() {
             var schema = s.Number({ max: 3 });
             assert.throws(function() {
-                schema.validate(longString);
+                schema.validate(large);
             }, Error);
         });
     });
@@ -200,14 +204,14 @@ describe("Schemas", function() {
         it("should accept valid email addresses", function() {
             var schema = s.Email();
             var valid = [
-                'mel@example.com',
-                'mel+chickensGoBrrrk@example.com',
-                'root@127.0.0.1'
+                "mel@example.com",
+                "mel+chickensGoBrrrk@example.com",
+                "root@127.0.0.1"
             ];
             var invalid = [
-                'notanemailaddress',
-                'this has spaces @ foo'
-            ]
+                "notanemailaddress",
+                "this has spaces @ foo"
+            ];
             valid.forEach(function(e) {
                 assert.equal(schema.validate(e), e.toLowerCase());
             });
@@ -221,11 +225,11 @@ describe("Schemas", function() {
 
 
     describe("Date validator", function() {
-        var old       = new Date('1979');
+        var old       = new Date("1979");
         var oldString = "1979";
-        var older     = new Date('1970');
+        var older     = new Date("1970");
         var now       = new Date();
-        var notADate  = {dinosaur: 'rawwwr'};
+        var notADate  = { dinosaur: "rawwwr" };
 
         it("should accept a valid Date", function() {
             var schema = s.Date();
@@ -262,8 +266,8 @@ describe("Schemas", function() {
     describe("Array validator", function() {
 
         var numArray   = [ 1, 2, 3 ];
-        var mixedArray = [ 1, 2, 3, 'bananna' ];
-        var messyArray = [ 1, 2, 3, 'bananna', { name: 'cat', colour: 'brown' } ];
+        var mixedArray = [ 1, 2, 3, "bananna" ];
+        var messyArray = [ 1, 2, 3, "bananna", { name: "cat", colour: "brown" } ];
 
         it("should accept a valid simple Array", function() {
             var schema = s.Array([s.Number()]);
@@ -273,7 +277,7 @@ describe("Schemas", function() {
         it("should reject an invalid simple Array", function() {
             var schema = s.Array([s.Number()]);
             assert.throws(function() {
-                schema.validate(mixedArray)
+                schema.validate(mixedArray);
             }, Error);
         });
 
@@ -300,7 +304,7 @@ describe("Schemas", function() {
 
         it("should allow any value", function() {
             var schema = s.Array([ s.Any() ]);
-            schema.validate([ true, 5, 'hello' ]);
+            schema.validate([ true, 5, "hello" ]);
         });
 
     });
