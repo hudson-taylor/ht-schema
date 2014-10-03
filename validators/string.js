@@ -7,7 +7,7 @@ var DELETEKEY = require("../lib/deleteKey");
 function strParser(args, childValidators, data) {
 
     // Merge optional values into args so we can still test for them
-    args = merge(args, { min: null, max: null, enum: null });
+    args = merge(args, { min: null, max: null, enum: null, trim: null, lower: null, upper: null, regex: null });
 
     // If we have no data, and this value is not optional, throw
     if(!data && !args.opt) {
@@ -34,6 +34,33 @@ function strParser(args, childValidators, data) {
 
     if(args.max !== null && data.length > args.max) {
         throw new Error("string length must be less than or equal to " + args.max);
+    }
+
+    // Order of precedence should coerce values before they
+    // are matched against the regex, and checked for enum.
+
+    if(args.trim === true) {
+        data = data.trim();
+    }
+
+    // Throw if both lower & upper are true
+    if(args.lower === true && args.upper === true) {
+        throw new Error("string options cannot set both lower and upper");
+    }
+
+    if(args.lower === true) {
+        data = data.toLowerCase();
+    }
+
+    if(args.upper === true) {
+        data = data.toUpperCase();
+    }
+
+    // Check if the user supplied a regex to match
+    if(Object.prototype.toString.call(args.regex) == "[object RegExp]") {
+        if(!args.regex.test(data)) {
+            throw new Error("string does not match regex: " + args.regex.toString());
+        }
     }
 
     // Check if the user passed an array of

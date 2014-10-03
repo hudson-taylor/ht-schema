@@ -58,7 +58,7 @@ s.Object({ 'foo as bar': s.String() });
 
 ### s.Number { opt: false }
 
-### s.String { opt: false, min: null, max: null, enum: null }
+### s.String { opt: false, min: null, max: null, enum: null, trim: null, upper: null, lower: null, regex: null }
 
 A string validator with an enum restriction
 ```javascript
@@ -68,6 +68,18 @@ s.String({ enum: [ "apples", "oranges" ] });
 A string validator with a length limit
 ```javascript
 s.String({ max: 256 });
+```
+
+A string validator that coerces the value
+```javascript
+s.String({ trim: true });
+s.String({ upper: true });
+s.String({ lower: true });
+```
+
+A string validator that matches a regex
+```javascript
+s.String({ regex: /h[ae]llo world/ });
 ```
 
 ### s.Array { opt: false }

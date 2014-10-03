@@ -151,6 +151,64 @@ describe("Schemas", function() {
             }, Error);
         });
 
+        it("should match a regex", function() {
+            var schema = s.String({
+                regex: /h.+d/
+            });
+            assert.throws(function() {
+                schema.validate("something");
+            });
+            schema.validate("hello world");
+        });
+
+        it("should trim a string", function() {
+            var schema = s.String({
+                trim: true
+            });
+            var str = " hello world ";
+            assert.equal(str.trim(), schema.validate(str));
+        });
+
+        it("should uppercase string", function() {
+            var schema = s.String({
+                upper: true
+            });
+            var str = "hello world";
+            assert.equal(str.toUpperCase(), schema.validate(str));
+        });
+
+        it("should lowercase string", function() {
+            var schema = s.String({
+                lower: true
+            });
+            var str = "HELLO WORLD";
+            assert.equal(str.toLowerCase(), schema.validate(str));
+        });
+
+        it("should throw if both upper and lower are enabled", function() {
+            var schema = s.String({
+                upper: true,
+                lower: true
+            });
+            assert.throws(function() {
+                schema.validate("");
+            });
+        });
+
+        it("should take order of precedence into account", function() {
+            // trim -> upper/lower -> regex -> enum
+            var schema = s.String({
+                trim: true,
+                upper: true,
+                regex: /H.+D/,
+                enum: [ "HELLO WORLD" ]
+            });
+            assert.throws(function() {
+                schema.validate("computer says no");
+            });
+            schema.validate(" hello world  ");
+        });
+
     });
 
     describe("Number validator", function() {
