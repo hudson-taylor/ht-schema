@@ -1,16 +1,19 @@
 
 "use strict";
 
-var fs = require("fs");
+var fs   = require("fs");
+var path = require("path");
 
 var merge = require("./lib/merge");
 
 var validators = {};
 
-var files = fs.readdirSync("./validators");
+var validatorsPath = path.resolve(__dirname, "validators");
+
+var files = fs.readdirSync(validatorsPath);
 
 files.forEach(function(file) {
-    var t = require("./validators/" + file);
+    var t = require(path.join(validatorsPath, file));
     validators[t.name] = makeParser(t.fn);
 });
 
