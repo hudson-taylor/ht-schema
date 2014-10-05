@@ -67,12 +67,14 @@ s.String({ enum: [ "apples", "oranges" ] });
 
 A string validator with a length limit
 ```javascript
+s.String({ len: 10  });
 s.String({ max: 256 });
+s.String({ min: 1   });
 ```
 
 A string validator that coerces the value
 ```javascript
-s.String({ trim: true });
+s.String({ trim: true  });
 s.String({ upper: true });
 s.String({ lower: true });
 ```

@@ -7,7 +7,7 @@ var DELETEKEY = require("../lib/deleteKey");
 function strParser(args, childValidators, data) {
 
     // Merge optional values into args so we can still test for them
-    args = merge(args, { min: null, max: null, enum: null, trim: null, lower: null, upper: null, regex: null });
+    args = merge(args, { len: null, min: null, max: null, enum: null, trim: null, lower: null, upper: null, regex: null });
 
     // If we have no data, and this value is not optional, throw
     if(!data && !args.opt) {
@@ -27,7 +27,12 @@ function strParser(args, childValidators, data) {
         throw new Error("required String, recieved " + type + ", " + data);
     }
 
-    // Extra options, check min/max length
+    // Extra options, check length etc.
+
+    if(args.len !== null && data.length != args.len) {
+        throw new Error("string length must be " + args.len);
+    }
+
     if(args.min !== null && data.length < args.min) {
         throw new Error("string length must be greater than " + args.min);
     }

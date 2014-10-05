@@ -121,6 +121,14 @@ describe("Schemas", function() {
             }, Error);
         });
 
+        it("should reject a string not matching required length", function() {
+            var schema = s.String({ len: 10 });
+            assert.throws(function() {
+                schema.validate("a");
+            });
+            schema.validate("123456789a");
+        });
+
         it("should reject a string shorter than min", function() {
             var schema = s.String({ min: 5 });
             assert.throws(function() {
