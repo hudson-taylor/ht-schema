@@ -79,7 +79,7 @@ s.String({ upper: true });
 s.String({ lower: true });
 ```
 
-A string validator that matches a regex
+A string validator that matches a regex (regex can optionally be passed in as a string)
 ```javascript
 s.String({ regex: /h[ae]llo world/ });
 ```

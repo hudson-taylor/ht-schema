@@ -14,7 +14,7 @@ function strParser(args, childValidators, data) {
         throw new Error("required String");
     }
 
-    // Else, return DELETEKEY so the key is deleted from the
+    // If not, return DELETEKEY so the key is deleted from the
     // object that is sent to the service
     if(!data && args.opt) {
         return DELETEKEY;
@@ -62,10 +62,20 @@ function strParser(args, childValidators, data) {
     }
 
     // Check if the user supplied a regex to match
-    if(Object.prototype.toString.call(args.regex) == "[object RegExp]") {
+    if(args.regex) {
+
+        if(Object.prototype.toString.call(args.regex) != "[object RegExp]") {
+            try {
+                args.regex = RegExp(args.regex);
+            } catch(e) {
+                throw new Error("invalid regex specified: " + args.regex.toString());
+            }
+        }
+
         if(!args.regex.test(data)) {
             throw new Error("string does not match regex: " + args.regex.toString());
         }
+
     }
 
     // Check if the user passed an array of

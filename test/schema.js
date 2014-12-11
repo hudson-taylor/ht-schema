@@ -159,6 +159,16 @@ describe("Schemas", function() {
             }, Error);
         });
 
+        it("should match a regex passed in as string", function() {
+            var schema = s.String({
+                regex: "^[a-f0-9]+$"
+            });
+            assert.throws(function() {
+                schema.validate("hello world");
+            });
+            schema.validate("abcdef");
+        });
+
         it("should match a regex", function() {
             var schema = s.String({
                 regex: /h.+d/
