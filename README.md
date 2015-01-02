@@ -107,7 +107,9 @@ var dogSchema = s.Object({
 s.Array({ opt: true }, [ catSchema, dogSchema ]);
 ```
 
-### s.Boolean { opt: false }
+### s.Boolean { opt: false, coerce: false }
+
+If coerce is set, truthy and falsy values will be converted to true/false
 
 ### s.Date { opt: false, min: null, max: null }
 
