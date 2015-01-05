@@ -1,6 +1,8 @@
 ht-schema
 =========
 
+[![Build Status](https://travis-ci.org/hudson-taylor/ht-schema.svg?branch=master)](https://travis-ci.org/hudson-taylor/ht-schema)
+
 Every API function in HT requires a schema that defines the kind of data that 
 function takes. While this may seem laborious at first, HT schemas are very 
 pragmatic, combine both validation and coersion in one. This means you are 
