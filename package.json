@@ -1,6 +1,6 @@
 {
   "name": "ht-schema",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "ht-schema",
   "main": "index.js",
   "directories": {

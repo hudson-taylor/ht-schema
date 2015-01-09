@@ -10,7 +10,7 @@ function numParser(args, childValidators, data) {
     if(!data && args.opt) return DELETEKEY;
     var origType = typeof data;
     data = Number(data);
-    if(isNaN(data)) throw new Error("required Number, recieved " + origType);
+    if(isNaN(data)) throw new Error("required Number, received " + origType);
     if(args.min && data < args.min) {
         throw new Error("must be greater than " + args.min);
     }

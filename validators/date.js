@@ -11,7 +11,7 @@ function dateParser(args, childValidators, data) {
     var origType = typeof data;
     var d = new Date(data);
     if(!(d instanceof Date) || isNaN(d.getTime())) {
-        throw new Error("required date or Date compatible string, recieved ("+
+        throw new Error("required date or Date compatible string, received ("+
                 origType+") "+ data.toString());
     }
     if(args.min && d.getTime() < new Date(args.min).getTime()) {

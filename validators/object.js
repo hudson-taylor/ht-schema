@@ -31,7 +31,7 @@ function objParser(args, childValidators, data, key) {
     var type = typeof data;
 
     if(type !== "object") {
-        throw new Error("must be an object, recieved "+ type);
+        throw new Error("must be an object, received "+ type);
     }
 
     var seen = {};

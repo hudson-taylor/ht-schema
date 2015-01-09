@@ -24,7 +24,7 @@ function strParser(args, childValidators, data) {
     var type = typeof data;
 
     if(type !== "string") {
-        throw new Error("required String, recieved " + type + ", " + data);
+        throw new Error("required String, received " + type + ", " + data);
     }
 
     // Extra options, check length etc.
