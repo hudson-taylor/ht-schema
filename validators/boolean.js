@@ -4,17 +4,20 @@
 var DELETEKEY = require("../lib/deleteKey");
 
 function boolParser(args, childValidators, data) {
-    if(data === null && !args.opt) throw new Error("required Boolean");
-    if(data === null || data === undefined && args.opt) return DELETEKEY;
 
-    if(args.coerce) {
-      return Boolean(data);
+    if(data === undefined) {
+        if(args.opt) {
+            return DELETEKEY;
+        }
+        throw new Error("required Boolean");
     }
 
-    var type = typeof(data);
+    if(args.coerce) {
+        return Boolean(data);
+    }
 
-    if(type != "boolean") {
-      throw new Error("Expected boolean, got: " + type);
+    if(typeof data != "boolean") {
+        throw new Error("expected Boolean, got:" + typeof data);
     }
 
     return data;

@@ -6,8 +6,14 @@ var DELETEKEY = require("../lib/deleteKey");
 
 function numParser(args, childValidators, data) {
     args = merge(args, { min: null, max: null });
-    if(!data && !args.opt) throw new Error("required Number");
-    if(!data && args.opt) return DELETEKEY;
+
+    if(data === undefined) {
+        if(args.opt) {
+            return DELETEKEY;
+        }
+        throw new Error("required Number");
+    }
+
     var origType = typeof data;
     data = Number(data);
     if(isNaN(data)) throw new Error("required Number, received " + origType);

@@ -11,6 +11,20 @@ describe("Number validator", function() {
     var stringNumber = "123";
     var notANumber   = {};
 
+    it("should require value", function() {
+        var schema = s.Number();
+        assert.throws(function() {
+            schema.validate();
+        });
+    });
+
+    it("should allow optional value if opt is set", function() {
+        var schema = s.Number({ opt: true });
+        assert.doesNotThrow(function() {
+            schema.validate();
+        });
+    });
+
     it("should accept a valid Number", function() {
         var schema = s.Number();
         assert.equal(schema.validate(small), small);

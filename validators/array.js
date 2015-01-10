@@ -6,12 +6,17 @@ var DELETEKEY = require("../lib/deleteKey");
 function arrayParser(args, childValidators, data, key) {
     childValidators = childValidators || [];
     var out = [];
-    if(!data instanceof Array && !args.opt) throw new Error("required Array");
-    if(!data && args.opt) return DELETEKEY;
-    for(var i=0; i < data.length; i++) {
-        var val = data[i];
+
+    if(!Array.isArray(data)) {
+        throw new Error("required Array");
+    }
+
+    for(var i = 0; i < data.length; i++) {
+        
+        var val     = data[i];
         var matched = false;
-        for(var v=0; v < childValidators.length; v++) {
+        
+        for(var v = 0; v < childValidators.length; v++) {
             if(!matched) {
                 try {
                     out.push(childValidators[v].parse(val, key + "[" + i + "]"));

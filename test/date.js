@@ -12,6 +12,26 @@ describe("Date validator", function() {
     var now       = new Date();
     var notADate  = { dinosaur: "rawwwr" };
 
+    it("should require value", function() {
+
+        var schema = s.Date();
+
+        assert.throws(function() {
+            schema.validate();
+        });
+
+    });
+    
+    it("should allow optional value if opt is set", function() {
+
+        var schema = s.Date({ opt: true });
+
+        assert.doesNotThrow(function() {
+            schema.validate(undefined);
+        });
+
+    });
+
     it("should accept a valid Date", function() {
         var schema = s.Date();
         assert.equal(schema.validate(old).getTime(), old.getTime());

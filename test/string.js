@@ -70,6 +70,15 @@ describe("String validator", function() {
         schema.validate("abcdef");
     });
 
+    it("should throw if regex is invalid", function() {
+        var schema = s.String({
+            regex: "+"
+        });
+        assert.throws(function() {
+            schema.validate("string");
+        });
+    });
+
     it("should match a regex", function() {
         var schema = s.String({
             regex: /h.+d/

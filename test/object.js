@@ -13,6 +13,27 @@ describe("Object validator", function() {
     var catOwner    = { name: "Bea",   cat:    ceilingCat                };
     var basementCat = { name: "Penny"                                    };
 
+    it("should require value", function() {
+        var schema = s.Object();
+        assert.throws(function() {
+            schema.validate();
+        });
+    });
+
+    it("should allow optional value if opt is set", function() {
+        var schema = s.Object({ opt: true });
+        assert.doesNotThrow(function() {
+            schema.validate();
+        });
+    });
+
+    it("should require object as value", function() {
+        var schema = s.Object();
+        assert.throws(function() {
+            schema.validate("notAnObject");
+        });
+    });
+
     it("should accept a strictly valid object", function() {
         var catSchema = s.Object({
             name:   s.String(),

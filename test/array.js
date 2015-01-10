@@ -11,6 +11,13 @@ describe("Array validator", function() {
     var mixedArray = [ 1, 2, 3, "bananna" ];
     var messyArray = [ 1, 2, 3, "bananna", { name: "cat", colour: "brown" } ];
 
+    it("should require value", function() {
+        var schema = s.Array([ s.Any() ]);
+        assert.throws(function() {
+            schema.validate();
+        });
+    });
+
     it("should accept a valid simple Array", function() {
         var schema = s.Array([s.Number()]);
         assert.deepEqual(schema.validate(numArray), numArray);
