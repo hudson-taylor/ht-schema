@@ -112,9 +112,18 @@ s.Array({ opt: true }, [ catSchema, dogSchema ]);
 
 ### s.Boolean { opt: false, coerce: false }
 
+```javascript
+var boolSchema = s.Boolean();
+boolSchema.validate(true); // -> true
+var maybeSchema = s.Boolean({ coerce: true });
+maybeSchema.validate("truthy"); // -> true
+```
+
 If coerce is set, truthy and falsy values will be converted to true/false
 
 ### s.Date { opt: false, min: null, max: null }
+
+`min` and `max` need to be unix epoch timestamps
 
 ### s.Email { opt: false, normalize: true }
 
