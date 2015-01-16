@@ -137,4 +137,12 @@ describe("String validator", function() {
         schema.validate(" hello world  ");
     });
 
+    it("should sanatize string if enabled", function() {
+        var schema = s.String({
+            sanitize: true
+        });
+        assert.equal(schema.validate("hello"), "hello");
+        assert.equal(schema.validate("<>"), "&lt;&gt;");
+    });
+
 });

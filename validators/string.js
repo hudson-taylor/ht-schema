@@ -1,6 +1,8 @@
 
 "use strict";
 
+var sanitizer = require("sanitizer");
+
 var merge     = require("../lib/merge");
 var DELETEKEY = require("../lib/deleteKey");
 
@@ -87,6 +89,10 @@ function strParser(args, childValidators, data) {
         })) {
             throw new Error("string does not match enum: " + args.enum);
         }
+    }
+
+    if(args.sanitize) {
+        data = sanitizer.escape(data);
     }
 
     // Data passes all tests, return

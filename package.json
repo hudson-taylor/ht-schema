@@ -1,6 +1,6 @@
 {
   "name": "ht-schema",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "ht-schema",
   "main": "index.js",
   "directories": {
@@ -38,7 +38,8 @@
   },
   "homepage": "https://github.com/hudson-taylor/ht-schema",
   "dependencies": {
-    "isemail": "^1.1.1"
+    "isemail": "^1.1.1",
+    "sanitizer": "^0.1.2"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
