@@ -87,7 +87,7 @@ A string validator that matches a regex (regex can optionally be passed in as a 
 s.String({ regex: /h[ae]llo world/ });
 ```
 
-### s.Array { opt: false }
+### s.Array { opt: false, length: null, minLength: null, maxLength: null }
 
 An array validator which can only contain Dates.
 ```javascript

@@ -14,6 +14,18 @@ function arrayParser(args, childValidators, data, key) {
         throw new Error("required Array");
     }
 
+    if(typeof args.length == 'number' && data.length !== args.length) {
+        throw new Error("required array with " + args.length + " items, got: " + data.length);
+    }
+
+    if(typeof args.minLength == 'number' && data.length < args.minLength) {
+        throw new Error("required array wtith minimum " + args.length + " items, got: " + data.length);
+    }
+
+    if(typeof args.maxLength == 'number' && data.length > args.maxLength) {
+        throw new Error("required array with maximum " + args.length + " items, got: " + data.length);
+    }
+
     for(var i = 0; i < data.length; i++) {
         
         var val     = data[i];

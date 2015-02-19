@@ -57,4 +57,42 @@ describe("Array validator", function() {
         assert.deepEqual(schema.validate(messyArray), messyArray);
     });
 
+    it("should accept length option", function() {
+
+        var schema = s.Array({ length: 5 }, [ s.Number() ]);
+
+        assert.throws(function() {
+            schema.validate([ 1, 2, 3, 4 ]);
+        });
+
+        assert.deepEqual(schema.validate([ 1, 2, 3, 4, 5 ]), [ 1, 2, 3, 4, 5 ]);
+
+    });
+
+    it("should accept minLength option", function() {
+
+        var schema = s.Array({ minLength: 3 }, [ s.Number() ]);
+
+        assert.throws(function() {
+            schema.validate([ 1, 2 ]);
+        });
+
+        assert.deepEqual(schema.validate([ 1, 2, 3 ]), [ 1, 2, 3 ]);
+        assert.deepEqual(schema.validate([ 1, 2, 3, 4, 5, 6, 7 ]), [ 1, 2, 3, 4, 5, 6, 7 ]);
+
+    });
+
+    it("should accept maxLength option", function() {
+
+        var schema = s.Array({ maxLength: 3 }, [ s.Number() ]);
+
+        assert.throws(function() {
+            schema.validate([ 1, 2, 3, 4 ]);
+        });
+
+        assert.deepEqual(schema.validate([ 1 ]), [ 1 ]);
+        assert.deepEqual(schema.validate([ 1, 2, 3 ]), [ 1, 2, 3 ]);
+
+    });
+
 });
