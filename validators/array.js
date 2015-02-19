@@ -8,6 +8,9 @@ function arrayParser(args, childValidators, data, key) {
     var out = [];
 
     if(!Array.isArray(data)) {
+        if(args.opt) {
+            return DELETEKEY;
+        }
         throw new Error("required Array");
     }
 

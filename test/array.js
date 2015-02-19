@@ -18,6 +18,16 @@ describe("Array validator", function() {
         });
     });
 
+    it("should allow optional value if opt is set", function() {
+
+        var schema = s.Array({ opt: true });
+
+        assert.doesNotThrow(function() {
+            schema.validate(undefined);
+        });
+
+    });
+
     it("should accept a valid simple Array", function() {
         var schema = s.Array([s.Number()]);
         assert.deepEqual(schema.validate(numArray), numArray);
