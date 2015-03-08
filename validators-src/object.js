@@ -55,8 +55,6 @@ function objParser(args, childValidators, data, key) {
                 out[k] = data[k]; //otherwise pass them as-is.
             }
             continue;
-        } else if(!data[k] && v[1].args.default) {
-            data[k] = v[1].args.default;
         }
         try {
             out[v[0]] = v[1].parse(data[k], key + "." + v[0]);
@@ -74,7 +72,7 @@ function objParser(args, childValidators, data, key) {
         if(!seen[k]) {
             try {
                 let v = validator(k);
-                out[v[0]] = v[1].parse(null || v[1].args.default, key + "." + v[0]);
+                out[v[0]] = v[1].parse(v[1].args.default || null, key + "." + v[0]);
             } catch(e) {
                 throw new Error("Missing attribute '" + key + "." + v[0] + "': " + e.message);
             }

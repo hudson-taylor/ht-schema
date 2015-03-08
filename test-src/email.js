@@ -69,4 +69,14 @@ describe("Email validator", function() {
 
     });
 
+    it("should not normalize if options is not set", function() {
+
+        let schema = s.Email({ normalize: false });
+
+        let email = "TesT@heLLo.CoM";
+
+        assert.equal(schema.validate(email), email);
+
+    });
+
 });

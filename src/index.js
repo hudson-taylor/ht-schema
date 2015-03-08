@@ -17,10 +17,6 @@ files.forEach(function(file) {
     validators[t.name] = makeParser(t.fn);
 });
 
-validators.makeParser = makeParser;
-
-module.exports = validators;
-
 function makeParser(parserFunc, docFunc) {
 
     // parserFunc takes arguments, child-validators || null, and the data to
@@ -93,3 +89,6 @@ Parser.prototype.validate = function(data, key) {
 Parser.prototype.document = function() {
     return this.docFunc.call(this, this.args);
 };
+
+validators.makeParser = makeParser;
+module.exports = validators;

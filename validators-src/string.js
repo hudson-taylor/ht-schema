@@ -1,7 +1,7 @@
 
 "use strict";
 
-import sanitizer from "sanitizer";
+const sanitizer = require("sanitizer");
 
 const merge     = require("../lib/merge");
 const DELETEKEY = require("../lib/deleteKey");
@@ -10,6 +10,11 @@ function strParser(args, childValidators, data) {
 
     // Merge optional values into args so we can still test for them
     args = merge(args, { len: null, min: null, max: null, enum: null, trim: null, lower: null, upper: null, regex: null });
+
+    // Throw if both lower & upper are true
+    if(args.lower === true && args.upper === true) {
+        throw new Error("string options cannot set both lower and upper");
+    }
 
     // If we have no data, and this value is not optional, throw
     if(!data && !args.opt) {
@@ -48,11 +53,6 @@ function strParser(args, childValidators, data) {
 
     if(args.trim === true) {
         data = data.trim();
-    }
-
-    // Throw if both lower & upper are true
-    if(args.lower === true && args.upper === true) {
-        throw new Error("string options cannot set both lower and upper");
     }
 
     if(args.lower === true) {
