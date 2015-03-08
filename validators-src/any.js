@@ -1,7 +1,7 @@
 
 "use strict";
 
-import DELETEKEY from "../lib/deleteKey";
+const DELETEKEY = require("../lib/deleteKey");
 
 function anyParser(args, childValidators, data) {
 

@@ -1,10 +1,10 @@
 
 "use strict";
 
-import fs   from "fs";
-import path from "path";
+const fs   = require("fs");
+const path = require("path");
 
-import merge from "./merge";
+const merge = require("./merge");
 
 let validators = {};
 
@@ -44,19 +44,10 @@ function makeParser(parserFunc, docFunc) {
                 // One argument, are they args or validators?
                 let areValidators = false;
 
-                if(Array.isArray(arguments[0])) {
-                    for(let i = 0; i < arguments[0].length; i++) {
-                        if(typeof arguments[0][i] == "object" && arguments[0][i].hasOwnProperty("childValidators")) {
-                            areValidators = true;
-                            break;
-                        }
-                    }
-                } else {
-                    for(let k in arguments[0]) {
-                        if(typeof arguments[0][k] == "object" && arguments[0][k].hasOwnProperty("childValidators")) {
-                            areValidators = true;
-                            break;
-                        }
+                for(let k in arguments[0]) {
+                    if(typeof arguments[0][k] == "object" && arguments[0][k].hasOwnProperty("childValidators")) {
+                        areValidators = true;
+                        break;
                     }
                 }
 
@@ -73,29 +64,32 @@ function makeParser(parserFunc, docFunc) {
             
         }
 
-        return new(function(args, childValidators) {
+        var parser = new Parser(parserFunc, args, childValidators, docFunc);
 
-            let self = this;
-            self.childValidators = childValidators;
-            self.args = args;
-
-            self.parse = function(data, key, first) {
-                //All validators should handle opt (optional)
-                let args = merge(self.args, { opt: false });
-                let val = parserFunc.call(self, args, self.childValidators, data, key);
-                if(first && val !== null && typeof val == "object" && val.htDeleteKey) return null;
-                return val;
-            };
-
-            self.validate = function(data, key) {
-                return self.parse(data, key || "schema", true);
-            };
-
-            self.document = function() {
-                return docFunc.call(self, args);
-            };
-
-        })(args, childValidators);
+        return parser;
 
     };
 }
+
+function Parser(parserFunc, args, childValidators, docFunc) {
+    this.parserFunc      = parserFunc;
+    this.args            = args;
+    this.childValidators = childValidators;
+    this.docFunc         = docFunc;
+}
+
+Parser.prototype.parse = function(data, key, first) {
+    //All validators should handle opt (optional)
+    let args = merge(this.args, { opt: false });
+    let val = this.parserFunc.call(this, args, this.childValidators, data, key);
+    if(first && val !== null && typeof val == "object" && val.htDeleteKey) return null;
+    return val;
+};
+
+Parser.prototype.validate = function(data, key) {
+    return this.parse(data, key || "schema", true);
+};
+
+Parser.prototype.document = function() {
+    return this.docFunc.call(this, this.args);
+};

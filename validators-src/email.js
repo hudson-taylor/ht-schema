@@ -1,10 +1,10 @@
 
 "use strict";
 
-import isemail from "isemail";
+const isemail = require("isemail");
 
-import merge     from "../lib/merge";
-import DELETEKEY from "../lib/deleteKey";
+const merge     = require("../lib/merge");
+const DELETEKEY = require("../lib/deleteKey");
 
 function emailParser(args, childValidators, data) {
     args = merge(args, { normalize: true });

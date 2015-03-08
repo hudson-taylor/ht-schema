@@ -1,8 +1,8 @@
 
 "use strict";
 
-import assert from "assert";
-import s from "../";
+const assert = require("assert");
+const s      = require("../");
 
 describe("Object validator", function() {
 

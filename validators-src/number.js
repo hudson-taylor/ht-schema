@@ -1,8 +1,8 @@
 
 "use strict";
 
-import merge     from "../lib/merge";
-import DELETEKEY from "../lib/deleteKey";
+const merge     = require("../lib/merge");
+const DELETEKEY = require("../lib/deleteKey");
 
 function numParser(args, childValidators, data) {
     args = merge(args, { min: null, max: null });
