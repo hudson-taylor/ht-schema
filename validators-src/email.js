@@ -1,10 +1,10 @@
 
 "use strict";
 
-var isemail = require("isemail");
+import isemail from "isemail";
 
-var merge     = require("../lib/merge");
-var DELETEKEY = require("../lib/deleteKey");
+import merge     from "../lib/merge";
+import DELETEKEY from "../lib/deleteKey";
 
 function emailParser(args, childValidators, data) {
     args = merge(args, { normalize: true });
@@ -16,7 +16,7 @@ function emailParser(args, childValidators, data) {
         throw new Error("required Email address");
     }
 
-    var type = typeof data;
+    let type = typeof data;
 
     if(type !== "string") {
         throw new Error("required String Email: got " + type);
@@ -36,7 +36,7 @@ function emailParser(args, childValidators, data) {
 
 }
 
-module.exports = {
+export default {
     name: "Email",
     fn:   emailParser
 };

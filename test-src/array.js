@@ -1,18 +1,17 @@
 
 "use strict";
 
-var assert = require("assert");
-
-var s = require("../");
+import assert from "assert";
+import s      from "../";
 
 describe("Array validator", function() {
 
-    var numArray   = [ 1, 2, 3 ];
-    var mixedArray = [ 1, 2, 3, "bananna" ];
-    var messyArray = [ 1, 2, 3, "bananna", { name: "cat", colour: "brown" } ];
+    let numArray   = [ 1, 2, 3 ];
+    let mixedArray = [ 1, 2, 3, "bananna" ];
+    let messyArray = [ 1, 2, 3, "bananna", { name: "cat", colour: "brown" } ];
 
     it("should require value", function() {
-        var schema = s.Array([ s.Any() ]);
+        let schema = s.Array([ s.Any() ]);
         assert.throws(function() {
             schema.validate();
         });
@@ -20,7 +19,7 @@ describe("Array validator", function() {
 
     it("should allow optional value if opt is set", function() {
 
-        var schema = s.Array({ opt: true });
+        let schema = s.Array({ opt: true });
 
         assert.doesNotThrow(function() {
             schema.validate(undefined);
@@ -29,24 +28,24 @@ describe("Array validator", function() {
     });
 
     it("should accept a valid simple Array", function() {
-        var schema = s.Array([s.Number()]);
+        let schema = s.Array([s.Number()]);
         assert.deepEqual(schema.validate(numArray), numArray);
     });
 
     it("should reject an invalid simple Array", function() {
-        var schema = s.Array([s.Number()]);
+        let schema = s.Array([s.Number()]);
         assert.throws(function() {
             schema.validate(mixedArray);
         }, Error);
     });
 
     it("should accept a valid simple mixed Array", function() {
-        var schema = s.Array([ s.Number(), s.String() ]);
+        let schema = s.Array([ s.Number(), s.String() ]);
         assert.deepEqual(schema.validate(mixedArray), mixedArray);
     });
 
     it("should accept a valid complex mixed Array", function() {
-        var schema = s.Array([
+        let schema = s.Array([
             s.Number(),
             s.String(),
             s.Object({
@@ -59,7 +58,7 @@ describe("Array validator", function() {
 
     it("should accept length option", function() {
 
-        var schema = s.Array({ length: 5 }, [ s.Number() ]);
+        let schema = s.Array({ length: 5 }, [ s.Number() ]);
 
         assert.throws(function() {
             schema.validate([ 1, 2, 3, 4 ]);
@@ -71,7 +70,7 @@ describe("Array validator", function() {
 
     it("should accept minLength option", function() {
 
-        var schema = s.Array({ minLength: 3 }, [ s.Number() ]);
+        let schema = s.Array({ minLength: 3 }, [ s.Number() ]);
 
         assert.throws(function() {
             schema.validate([ 1, 2 ]);
@@ -84,7 +83,7 @@ describe("Array validator", function() {
 
     it("should accept maxLength option", function() {
 
-        var schema = s.Array({ maxLength: 3 }, [ s.Number() ]);
+        let schema = s.Array({ maxLength: 3 }, [ s.Number() ]);
 
         assert.throws(function() {
             schema.validate([ 1, 2, 3, 4 ]);

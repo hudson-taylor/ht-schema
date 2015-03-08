@@ -1,19 +1,19 @@
 
 "use strict";
 
-var fs   = require("fs");
-var path = require("path");
+import fs   from "fs";
+import path from "path";
 
-var merge = require("./merge");
+import merge from "./merge";
 
-var validators = {};
+let validators = {};
 
-var validatorsPath = path.resolve(__dirname, "../validators");
+let validatorsPath = path.resolve(__dirname, "../validators");
 
-var files = fs.readdirSync(validatorsPath);
+let files = fs.readdirSync(validatorsPath);
 
 files.forEach(function(file) {
-    var t = require(path.join(validatorsPath, file));
+    let t = require(path.join(validatorsPath, file));
     validators[t.name] = makeParser(t.fn);
 });
 
@@ -42,17 +42,17 @@ function makeParser(parserFunc, docFunc) {
             case 1: {
 
                 // One argument, are they args or validators?
-                var areValidators = false;
+                let areValidators = false;
 
                 if(Array.isArray(arguments[0])) {
-                    for(var i = 0; i < arguments[0].length; i++) {
+                    for(let i = 0; i < arguments[0].length; i++) {
                         if(typeof arguments[0][i] == "object" && arguments[0][i].hasOwnProperty("childValidators")) {
                             areValidators = true;
                             break;
                         }
                     }
                 } else {
-                    for(var k in arguments[0]) {
+                    for(let k in arguments[0]) {
                         if(typeof arguments[0][k] == "object" && arguments[0][k].hasOwnProperty("childValidators")) {
                             areValidators = true;
                             break;
@@ -75,14 +75,14 @@ function makeParser(parserFunc, docFunc) {
 
         return new(function(args, childValidators) {
 
-            var self = this;
+            let self = this;
             self.childValidators = childValidators;
             self.args = args;
 
             self.parse = function(data, key, first) {
                 //All validators should handle opt (optional)
-                var args = merge(self.args, { opt: false });
-                var val = parserFunc.call(self, args, self.childValidators, data, key);
+                let args = merge(self.args, { opt: false });
+                let val = parserFunc.call(self, args, self.childValidators, data, key);
                 if(first && val !== null && typeof val == "object" && val.htDeleteKey) return null;
                 return val;
             };

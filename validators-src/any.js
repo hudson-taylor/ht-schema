@@ -1,7 +1,7 @@
 
 "use strict";
 
-var DELETEKEY = require("../lib/deleteKey");
+import DELETEKEY from "../lib/deleteKey";
 
 function anyParser(args, childValidators, data) {
 
@@ -16,7 +16,7 @@ function anyParser(args, childValidators, data) {
     
 }
 
-module.exports = {
+export default {
   name: "Any",
   fn:   anyParser
 };

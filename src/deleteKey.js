@@ -3,6 +3,6 @@
 
 "use strict";
 
-var DELETEKEY = { htDeleteKey: true };
+const DELETEKEY = { htDeleteKey: true };
 
-module.exports = DELETEKEY;
+export default DELETEKEY;

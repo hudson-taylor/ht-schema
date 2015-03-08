@@ -1,29 +1,29 @@
 
 "use strict";
 
-var assert = require("assert");
+import assert from "assert";
 
-var s = require("../");
+import s from "../";
 
 describe("String validator", function() {
-    var shortString = "Hi!";
-    var longString  = "I am the very model of a modern major general";
-    var notAString  = {};
+    let shortString = "Hi!";
+    let longString  = "I am the very model of a modern major general";
+    let notAString  = {};
 
     it("should accept a valid string", function() {
-        var schema = s.String();
+        let schema = s.String();
         assert.equal(schema.validate(shortString), shortString);
     });
 
     it("should reject an invalid string", function() {
-        var schema = s.String();
+        let schema = s.String();
         assert.throws(function() {
             schema.validate(notAString);
         }, Error);
     });
 
     it("should reject a string not matching required length", function() {
-        var schema = s.String({ len: 10 });
+        let schema = s.String({ len: 10 });
         assert.throws(function() {
             schema.validate("a");
         });
@@ -31,28 +31,28 @@ describe("String validator", function() {
     });
 
     it("should reject a string shorter than min", function() {
-        var schema = s.String({ min: 5 });
+        let schema = s.String({ min: 5 });
         assert.throws(function() {
             schema.validate(shortString);
         }, Error);
     });
 
     it("should reject a string greater than max", function() {
-        var schema = s.String({ max: 3 });
+        let schema = s.String({ max: 3 });
         assert.throws(function() {
             schema.validate(longString);
         }, Error);
     });
 
     it("should accept a valid enum", function() {
-        var schema = s.String({
+        let schema = s.String({
             enum: [ "blue", "green", "red" ]
         });
         assert.equal(schema.validate("blue"), "blue");
     });
 
     it("should reject an invalid enum", function() {
-        var schema = s.String({
+        let schema = s.String({
             enum: [ "blue", "green", "red" ]
         });
         assert.throws(function() {
@@ -61,7 +61,7 @@ describe("String validator", function() {
     });
 
     it("should match a regex passed in as string", function() {
-        var schema = s.String({
+        let schema = s.String({
             regex: "^[a-f0-9]+$"
         });
         assert.throws(function() {
@@ -71,7 +71,7 @@ describe("String validator", function() {
     });
 
     it("should throw if regex is invalid", function() {
-        var schema = s.String({
+        let schema = s.String({
             regex: "+"
         });
         assert.throws(function() {
@@ -80,7 +80,7 @@ describe("String validator", function() {
     });
 
     it("should match a regex", function() {
-        var schema = s.String({
+        let schema = s.String({
             regex: /h.+d/
         });
         assert.throws(function() {
@@ -90,31 +90,31 @@ describe("String validator", function() {
     });
 
     it("should trim a string", function() {
-        var schema = s.String({
+        let schema = s.String({
             trim: true
         });
-        var str = " hello world ";
+        let str = " hello world ";
         assert.equal(str.trim(), schema.validate(str));
     });
 
     it("should uppercase string", function() {
-        var schema = s.String({
+        let schema = s.String({
             upper: true
         });
-        var str = "hello world";
+        let str = "hello world";
         assert.equal(str.toUpperCase(), schema.validate(str));
     });
 
     it("should lowercase string", function() {
-        var schema = s.String({
+        let schema = s.String({
             lower: true
         });
-        var str = "HELLO WORLD";
+        let str = "HELLO WORLD";
         assert.equal(str.toLowerCase(), schema.validate(str));
     });
 
     it("should throw if both upper and lower are enabled", function() {
-        var schema = s.String({
+        let schema = s.String({
             upper: true,
             lower: true
         });
@@ -125,7 +125,7 @@ describe("String validator", function() {
 
     it("should take order of precedence into account", function() {
         // trim -> upper/lower -> regex -> enum
-        var schema = s.String({
+        let schema = s.String({
             trim: true,
             upper: true,
             regex: /H.+D/,
@@ -138,7 +138,7 @@ describe("String validator", function() {
     });
 
     it("should sanatize string if enabled", function() {
-        var schema = s.String({
+        let schema = s.String({
             sanitize: true
         });
         assert.equal(schema.validate("hello"), "hello");

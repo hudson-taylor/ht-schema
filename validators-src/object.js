@@ -1,17 +1,17 @@
 
 "use strict";
 
-var merge     = require("../lib/merge");
-var DELETEKEY = require("../lib/deleteKey");
+import merge     from "../lib/merge";
+import DELETEKEY from "../lib/deleteKey";
 
 function objParser(args, childValidators, data, key) {
     childValidators = childValidators || {};
     function validator(k) {
         //returns a keyname and corresponding validator for a key, or null
-        for(var key in childValidators) {
+        for(let key in childValidators) {
             if(key == k) return [k, childValidators[k]];
             //handle as attribute names 'foo as bar'
-            var bits = key.split(" ");
+            let bits = key.split(" ");
             if(bits.length == 3 && bits[0] == k && bits[1] == "as") {
                 return [bits[2], childValidators[key]];
             }
@@ -22,29 +22,29 @@ function objParser(args, childValidators, data, key) {
     //the schema will throw errors.
     args = merge(args, { strict : true });
 
-    var out = {};
+    let out = {};
     //handle no object provided if optional is false
     if(!data && !args.opt) throw new Error("required Object");
     if(!data && args.opt) return DELETEKEY;
 
     //check we actually have an object
-    var type = typeof data;
+    let type = typeof data;
 
     if(type !== "object") {
         throw new Error("must be an object, received "+ type);
     }
 
-    var seen = {};
+    let seen = {};
     // Check that all provided data is valid to the schema
-    for(var k in data) {
+    for(let k in data) {
         seen[k] = true;
-        var v = validator(k);
+        let v = validator(k);
         //Handle extra attributes that are not in the schema
         if(args.strict && !v) {
             throw new Error(k+ " is not specified in " + key);
         } else if(!args.strict && !v) {
             //check for a special * validator to apply
-            var sv = validator("*");
+            let sv = validator("*");
             if(sv) {
                 try {
                     out[k] = sv[1].parse(data[k], key + "." + sv[0]);
@@ -66,14 +66,14 @@ function objParser(args, childValidators, data, key) {
     }
 
     // Check that all required schema fields have been provided
-    for(var k in childValidators) {
+    for(let k in childValidators) {
         if(k == "*") continue;
         //handle renamed attrs
-        var bits = k.split(" ");
+        let bits = k.split(" ");
         if(bits.length == 3) k = bits[0];
         if(!seen[k]) {
             try {
-                var v = validator(k);
+                let v = validator(k);
                 out[v[0]] = v[1].parse(null || v[1].args.default, key + "." + v[0]);
             } catch(e) {
                 throw new Error("Missing attribute '" + key + "." + v[0] + "': " + e.message);
@@ -91,7 +91,7 @@ function objParser(args, childValidators, data, key) {
 
 }
 
-module.exports = {
+export default {
     name: "Object",
     fn:   objParser
 };

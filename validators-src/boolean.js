@@ -1,7 +1,7 @@
 
 "use strict";
 
-var DELETEKEY = require("../lib/deleteKey");
+import DELETEKEY from "../lib/deleteKey";
 
 function boolParser(args, childValidators, data) {
 
@@ -24,7 +24,7 @@ function boolParser(args, childValidators, data) {
 
 }
 
-module.exports = {
+export default {
     name: "Boolean",
     fn:   boolParser
 };

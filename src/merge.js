@@ -3,11 +3,11 @@
 
 function merge() {
     // Merge objects passed as arguments, left to right precidence.
-    var result = {};
-    for (var i = 0; i < arguments.length; i++) {
-        var keys = Object.keys(arguments[i]);
-        for (var k = 0; k < keys.length; k++) {
-            var key = keys[k];
+    let result = {};
+    for (let i = 0; i < arguments.length; i++) {
+        let keys = Object.keys(arguments[i]);
+        for (let k = 0; k < keys.length; k++) {
+            let key = keys[k];
             if(!result.hasOwnProperty(key)) {
                 result[key] = arguments[i][key];
             }
@@ -16,4 +16,4 @@ function merge() {
     return result;
 }
 
-module.exports = merge;
+export default merge;

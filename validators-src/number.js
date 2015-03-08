@@ -1,8 +1,8 @@
 
 "use strict";
 
-var merge     = require("../lib/merge");
-var DELETEKEY = require("../lib/deleteKey");
+import merge     from "../lib/merge";
+import DELETEKEY from "../lib/deleteKey";
 
 function numParser(args, childValidators, data) {
     args = merge(args, { min: null, max: null });
@@ -14,7 +14,7 @@ function numParser(args, childValidators, data) {
         throw new Error("required Number");
     }
 
-    var origType = typeof data;
+    let origType = typeof data;
     data = Number(data);
     if(isNaN(data)) throw new Error("required Number, received " + origType);
     if(args.min && data < args.min) {
@@ -26,7 +26,7 @@ function numParser(args, childValidators, data) {
     return data;
 }
 
-module.exports = {
+export default {
     name: "Number",
     fn:   numParser
 };

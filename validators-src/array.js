@@ -1,11 +1,11 @@
 
 "use strict";
 
-var DELETEKEY = require("../lib/deleteKey");
+import DELETEKEY from "../lib/deleteKey";
 
 function arrayParser(args, childValidators, data, key) {
     childValidators = childValidators || [];
-    var out = [];
+    let out = [];
 
     if(!Array.isArray(data)) {
         if(args.opt) {
@@ -26,12 +26,12 @@ function arrayParser(args, childValidators, data, key) {
         throw new Error("required array with maximum " + args.length + " items, got: " + data.length);
     }
 
-    for(var i = 0; i < data.length; i++) {
+    for(let i = 0; i < data.length; i++) {
         
-        var val     = data[i];
-        var matched = false;
+        let val     = data[i];
+        let matched = false;
         
-        for(var v = 0; v < childValidators.length; v++) {
+        for(let v = 0; v < childValidators.length; v++) {
             if(!matched) {
                 try {
                     out.push(childValidators[v].parse(val, key + "[" + i + "]"));
@@ -50,7 +50,7 @@ function arrayParser(args, childValidators, data, key) {
     return out;
 }
 
-module.exports = {
+export default {
     name: "Array",
     fn:   arrayParser
 };

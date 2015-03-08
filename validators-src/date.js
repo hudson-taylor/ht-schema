@@ -1,8 +1,8 @@
 
 "use strict";
 
-var merge     = require("../lib/merge");
-var DELETEKEY = require("../lib/deleteKey");
+import merge     from "../lib/merge";
+import DELETEKEY from "../lib/deleteKey";
 
 function dateParser(args, childValidators, data) {
 
@@ -15,7 +15,7 @@ function dateParser(args, childValidators, data) {
         throw new Error("required Date");
     }
 
-    var d = new Date(data);
+    let d = new Date(data);
 
     if(!(d instanceof Date) || isNaN(d.getTime())) {
         throw new Error("required date or Date compatible string, received (" + typeof data + ") " + data.toString());
@@ -29,7 +29,7 @@ function dateParser(args, childValidators, data) {
     return d;
 }
 
-module.exports = {
+export default {
     name: "Date",
     fn:   dateParser
 };

@@ -1,15 +1,14 @@
 
 "use strict";
 
-var assert = require("assert");
-
-var s = require("../");
+import assert from "assert";
+import s      from "../";
 
 describe("Boolean validator", function() {
 
     it("should require value", function() {
 
-        var schema = s.Boolean();
+        let schema = s.Boolean();
 
         assert.throws(function() {
             schema.validate();
@@ -19,7 +18,7 @@ describe("Boolean validator", function() {
 
     it("should allow optional value if opt is set", function() {
 
-        var schema = s.Boolean({ opt: true });
+        let schema = s.Boolean({ opt: true });
 
         assert.doesNotThrow(function() {
             schema.validate(undefined);
@@ -29,9 +28,9 @@ describe("Boolean validator", function() {
 
     it("should coerce given value if coerce is set", function() {
 
-        var schema = s.Boolean({ coerce: true });
+        let schema = s.Boolean({ coerce: true });
 
-        var result = schema.validate("hello");
+        let result = schema.validate("hello");
 
         assert.equal(result, true);
 
@@ -39,7 +38,7 @@ describe("Boolean validator", function() {
 
     it("should throw if value given is not boolean", function() {
 
-        var schema = s.Boolean();
+        let schema = s.Boolean();
 
         assert.throws(function() {
             schema.validate(42);
@@ -49,7 +48,7 @@ describe("Boolean validator", function() {
 
     it("should validate correctly", function() {
 
-        var schema = s.Boolean();
+        let schema = s.Boolean();
 
         assert.doesNotThrow(function() {
 

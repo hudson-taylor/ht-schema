@@ -1,15 +1,14 @@
 
 "use strict";
 
-var assert = require("assert");
-
-var s = require("../");
+import assert from "assert";
+import s      from "../";
 
 describe("Email validator", function() {
 
     it("should require value", function() {
 
-        var schema = s.Email();
+        let schema = s.Email();
 
         assert.throws(function() {
             schema.validate();
@@ -19,7 +18,7 @@ describe("Email validator", function() {
     
     it("should allow optional value if opt is set", function() {
 
-        var schema = s.Email({ opt: true });
+        let schema = s.Email({ opt: true });
 
         assert.doesNotThrow(function() {
             schema.validate(undefined);
@@ -29,7 +28,7 @@ describe("Email validator", function() {
 
     it("should require string", function() {
 
-        var schema = s.Email();
+        let schema = s.Email();
 
         assert.throws(function() {
             schema.validate(true);
@@ -38,13 +37,13 @@ describe("Email validator", function() {
     });
 
     it("should accept valid email addresses", function() {
-        var schema = s.Email();
-        var valid = [
+        let schema = s.Email();
+        let valid = [
             "mel@example.com",
             "mel+chickensGoBrrrk@example.com",
             "root@127.0.0.1"
         ];
-        var invalid = [
+        let invalid = [
             "notanemailaddress",
             "this has spaces @ foo"
         ];
@@ -60,11 +59,11 @@ describe("Email validator", function() {
 
     it("should normalize email if option is set", function() {
 
-        var schema = s.Email({ normalize: true });
+        let schema = s.Email({ normalize: true });
 
-        var email = "TesT@heLLo.CoM";
+        let email = "TesT@heLLo.CoM";
 
-        var result = schema.validate(email);
+        let result = schema.validate(email);
 
         assert.equal(result, email.toLowerCase());
 

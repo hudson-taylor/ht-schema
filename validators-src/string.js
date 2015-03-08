@@ -1,10 +1,10 @@
 
 "use strict";
 
-var sanitizer = require("sanitizer");
+import sanitizer from "sanitizer";
 
-var merge     = require("../lib/merge");
-var DELETEKEY = require("../lib/deleteKey");
+import merge     from "../lib/merge";
+import DELETEKEY from "../lib/deleteKey";
 
 function strParser(args, childValidators, data) {
 
@@ -23,7 +23,7 @@ function strParser(args, childValidators, data) {
     }
 
     // Basic typechecking
-    var type = typeof data;
+    let type = typeof data;
 
     if(type !== "string") {
         throw new Error("required String, received " + type + ", " + data);
@@ -100,7 +100,7 @@ function strParser(args, childValidators, data) {
 
 }
 
-module.exports = {
+export default {
     name: "String",
     fn:   strParser
 };

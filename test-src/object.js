@@ -1,41 +1,40 @@
 
 "use strict";
 
-var assert = require("assert");
-
-var s = require("../");
+import assert from "assert";
+import s from "../";
 
 describe("Object validator", function() {
 
-    var ceilingCat  = { name: "Pixel", colour: "purple"                  };
-    var specialCat  = { name: "Pixel", colour: "purple",  lasers: true   };
-    var purryCat    = { name: "Pixel", colour: "purple",  goes:   "purr" };
-    var catOwner    = { name: "Bea",   cat:    ceilingCat                };
-    var basementCat = { name: "Penny"                                    };
+    let ceilingCat  = { name: "Pixel", colour: "purple"                  };
+    let specialCat  = { name: "Pixel", colour: "purple",  lasers: true   };
+    let purryCat    = { name: "Pixel", colour: "purple",  goes:   "purr" };
+    let catOwner    = { name: "Bea",   cat:    ceilingCat                };
+    let basementCat = { name: "Penny"                                    };
 
     it("should require value", function() {
-        var schema = s.Object();
+        let schema = s.Object();
         assert.throws(function() {
             schema.validate();
         });
     });
 
     it("should allow optional value if opt is set", function() {
-        var schema = s.Object({ opt: true });
+        let schema = s.Object({ opt: true });
         assert.doesNotThrow(function() {
             schema.validate();
         });
     });
 
     it("should require object as value", function() {
-        var schema = s.Object();
+        let schema = s.Object();
         assert.throws(function() {
             schema.validate("notAnObject");
         });
     });
 
     it("should accept a strictly valid object", function() {
-        var catSchema = s.Object({
+        let catSchema = s.Object({
             name:   s.String(),
             colour: s.String()
         });
@@ -43,7 +42,7 @@ describe("Object validator", function() {
     });
 
     it("should reject an invalid object", function() {
-        var catSchema = s.Object({
+        let catSchema = s.Object({
             name:   s.String(),
             colour: s.String()
         });
@@ -53,7 +52,7 @@ describe("Object validator", function() {
     });
 
     it("should accept extra attributes with strict set false", function() {
-        var catSchemaPermissive = s.Object({ strict: false }, {
+        let catSchemaPermissive = s.Object({ strict: false }, {
             name:   s.String(),
             colour: s.String()
         });
@@ -61,7 +60,7 @@ describe("Object validator", function() {
     });
 
     it("should rename attributes with keys of the form 'foo as bar'", function() {
-        var schema = s.Object({
+        let schema = s.Object({
             "name as catName": s.String(),
             colour:            s.String()
         });
@@ -70,7 +69,7 @@ describe("Object validator", function() {
 
 
     it("should apply a '*' validator to unknown fields with strict set false", function() {
-        var catSchemaPermissiveWithStar = s.Object({ strict: false }, {
+        let catSchemaPermissiveWithStar = s.Object({ strict: false }, {
             name: s.String(),
             colour: s.String(),
             "*": s.String({
@@ -84,17 +83,17 @@ describe("Object validator", function() {
     });
 
     it("should delete keys that return DELETEKEY", function() {
-        var catSchema = s.Object({
+        let catSchema = s.Object({
             name:   s.String({ opt: true }),
             colour: s.String()
         });
-        var data = { colour: "blue" };
-        var out  = catSchema.validate(data);
+        let data = { colour: "blue" };
+        let out  = catSchema.validate(data);
         assert.deepEqual(out, data);
     });
 
     it("should accept null if optional", function() {
-        var catSchema = s.Object({ opt: true }, {
+        let catSchema = s.Object({ opt: true }, {
             name:   s.String(),
             colour: s.String()
         });
@@ -102,7 +101,7 @@ describe("Object validator", function() {
     });
 
     it("should use default value if missing key (or value)", function() {
-        var catSchema = s.Object({}, {
+        let catSchema = s.Object({}, {
             name: s.String({ default: "something" })
         });
         assert.deepEqual(catSchema.validate({}), { name: "something" });
@@ -110,12 +109,12 @@ describe("Object validator", function() {
 
     it("should be composible", function() {
 
-        var catSchema = s.Object({ opt: true }, {
+        let catSchema = s.Object({ opt: true }, {
             name:   s.String(),
             colour: s.String()
         });
 
-        var ownerSchema = s.Object({
+        let ownerSchema = s.Object({
             name: s.String(),
             cat:  catSchema
         });
