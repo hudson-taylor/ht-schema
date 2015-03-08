@@ -4,11 +4,11 @@
 var fs   = require("fs");
 var path = require("path");
 
-var merge = require("./lib/merge");
+var merge = require("./merge");
 
 var validators = {};
 
-var validatorsPath = path.resolve(__dirname, "validators");
+var validatorsPath = path.resolve(__dirname, "../validators");
 
 var files = fs.readdirSync(validatorsPath);
 

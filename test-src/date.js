@@ -3,7 +3,7 @@
 
 var assert = require("assert");
 
-var s = require("../index");
+var s = require("../");
 
 describe("Date validator", function() {
     var old       = new Date("1979");

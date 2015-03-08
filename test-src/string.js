@@ -3,7 +3,7 @@
 
 var assert = require("assert");
 
-var s = require("../index");
+var s = require("../");
 
 describe("String validator", function() {
     var shortString = "Hi!";

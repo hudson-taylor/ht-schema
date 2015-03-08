@@ -2,14 +2,16 @@
   "name": "ht-schema",
   "version": "0.0.11",
   "description": "ht-schema",
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --recursive --reporter spec --bail --check-leaks",
-    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd --recursive -R spec -t 5000",
-    "push-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test": "npm run build && mocha --recursive --reporter spec --bail --check-leaks",
+    "build": "node ./node_modules/babel/bin/babel src -d lib && node ./node_modules/babel/bin/babel test-src -d test && node ./node_modules/babel/bin/babel validators-src -d validators",
+    "coverage": "npm run build && ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd --recursive -R spec -t 5000",
+    "push-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,8 @@
     "schema",
     "json",
     "validate",
-    "validator"
+    "validator",
+    "hudson-taylor"
   ],
   "author": "Hudson-Taylor developers",
   "contributors": [
@@ -42,6 +45,7 @@
     "sanitizer": "^0.1.2"
   },
   "devDependencies": {
+    "babel": "^4.7.3",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.5",
     "mocha": "^2.1.0"
