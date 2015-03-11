@@ -128,3 +128,54 @@ If coerce is set, truthy and falsy values will be converted to true/false
 ### s.Email { opt: false, normalize: true }
 
 If normalize is true (default) then the output email will be lowercased.
+
+## Schema Utility Functions
+
+These functions are part of the schema instance you get back `schema.clone` etc.
+
+### clone(...args)
+
+Clone creates a copy of the schema.
+
+If you pass an object as an argument to clone, it will merge your object with the schemas 'args', allowing you to set new attributes.
+
+(**Object** only) If you pass an array as an argument, it will use the array values as a whitelist, and return a new Object schema with only these keys.
+
+***Note***: You can pass more than one value to this function, they will be evaluated left to right.
+
+Replacing *args*:
+
+```js
+
+var schema = s.String({ opt: false });
+
+schema.validate(); // this will throw
+
+var newSchema = schema.clone({ opt: true });
+
+newSchema.validate(); // this won't
+
+```
+
+Trimming an *object*:
+
+```js
+
+var schema = s.Object({
+    a: s.Number(),
+    b: s.Number()
+});
+
+schema.validate({
+    a: 5,
+    b: 5
+});
+
+var newSchema = schema.clone([ 'a' ]); // only return a
+
+newSchema.validate({
+    a: 5,
+    b: 5 // < doesn't exist in this schema!
+});
+
+```
