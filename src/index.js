@@ -4,6 +4,8 @@
 const fs   = require("fs");
 const path = require("path");
 
+const clone = require('clone');
+
 const merge = require("./merge");
 
 let validators = {};
@@ -89,6 +91,33 @@ Parser.prototype.validate = function(data, key) {
 Parser.prototype.document = function() {
     return this.docFunc.call(this, this.args);
 };
+
+Parser.prototype.clone = function(...params) {
+
+    let parserFunc      = clone(this.parserFunc);
+    let args            = clone(this.args);
+    let childValidators = clone(this.childValidators);
+    let docFunc         = clone(this.docFunc);
+
+    params.forEach(function(arg) {
+        if(arg && typeof childValidators === 'object') {
+            if(Array.isArray(arg)) {
+                // If arg is an array, it's a whitelist
+                for(var k in childValidators) {
+                    if(!~arg.indexOf(k)) {
+                        delete childValidators[k];
+                    }
+                }
+            } else if(typeof arg === 'object') {
+                // If arg is an object, it's probably new "args"
+                args = merge(arg, args);
+            }
+        }
+    });
+
+    return new Parser(parserFunc, args, childValidators, docFunc);
+
+}
 
 validators.makeParser = makeParser;
 module.exports = validators;

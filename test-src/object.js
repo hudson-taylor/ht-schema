@@ -118,7 +118,7 @@ describe("Object validator", function() {
         assert.deepEqual(catSchema.validate(null), null);
     });
 
-    xit("should use default value if missing key (or value)", function() {
+    it("should use default value if missing key (or value)", function() {
         let catSchema = s.Object({}, {
             name: s.String({ default: "something" })
         });
