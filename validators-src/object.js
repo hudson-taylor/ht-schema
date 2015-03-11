@@ -70,9 +70,10 @@ function objParser(args, childValidators, data, key) {
         let bits = k.split(" ");
         if(bits.length == 3) k = bits[0];
         if(!seen[k]) {
+            let v;
             try {
-                let v = validator(k);
-                out[v[0]] = v[1].parse((v[1].args || {}).default, key + "." + v[0]);
+                v = validator(k);
+                out[v[0]] = v[1].parse(v[1].args.default, key + "." + v[0]);
             } catch(e) {
                 throw new Error("Missing attribute '" + key + "." + v[0] + "': " + e.message);
             }
