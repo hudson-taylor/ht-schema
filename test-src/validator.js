@@ -10,7 +10,7 @@ describe("Validator", function() {
 
     let args = {
       hello: "world"
-    }
+    };
 
     var p = s.makeParser(() => {}, function(_args) {
       assert.deepEqual(_args, args);

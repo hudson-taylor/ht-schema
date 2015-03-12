@@ -70,17 +70,22 @@ function makeParser(parserFunc, docFunc) {
 }
 
 function Parser(parserFunc, args, childValidators, docFunc) {
+
     this.$parserFunc  = parserFunc;
     this.$args        = args;
     this.$validators  = childValidators;
     this.$docFunc     = docFunc;
 
+    var getValidatorFn = function(k) {
+        return function() {
+            return this.$validators[k];
+        }.bind(this);
+    }.bind(this);
+
     if(this.$validators && typeof this.$validators === "object" && !Array.isArray(this.$validators) && Object.keys(this.$validators).length) {
         for(var k in this.$validators) {
             Object.defineProperty(this, k, {
-                get: function() {
-                    return this.$validators[k];
-                }
+                get: getValidatorFn(k)
             });
         }
     }
@@ -128,7 +133,7 @@ Parser.prototype.clone = function(...params) {
 
     return new Parser(parserFunc, args, childValidators, docFunc);
 
-}
+};
 
 validators.makeParser = makeParser;
 module.exports = validators;

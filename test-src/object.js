@@ -98,7 +98,7 @@ describe("Object validator", function() {
             });
         });
 
-    })
+    });
 
     it("should delete keys that return DELETEKEY", function() {
         let catSchema = s.Object({
