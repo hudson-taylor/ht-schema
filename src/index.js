@@ -74,6 +74,17 @@ function Parser(parserFunc, args, childValidators, docFunc) {
     this.$args        = args;
     this.$validators  = childValidators;
     this.$docFunc     = docFunc;
+
+    if(typeof this.$validators === "object") {
+        for(var k in this.$validators) {
+            Object.defineProperty(this, k, {
+                get: function() {
+                    return this.$validators[k];
+                }
+            });
+        }
+    }
+
 }
 
 Parser.prototype.parse = function(data, key, first) {

@@ -23,6 +23,26 @@ describe("Validator", function() {
 
   });
 
+  it("should be able to access child validators of object schema", function() {
+
+    let a = s.Number();
+
+    let schema = s.Object({
+      a: a,
+      b: s.Number(),
+      c: s.Number()
+    });
+
+    for(var k in schema.$validators) {
+      let r = Object.getOwnPropertyDescriptor(schema, k);
+      assert.notEqual(r.get, undefined);
+    }
+
+    // should be able to validate specific fields
+    schema.a.validate(5);
+
+  });
+
   describe("clone", function() {
 
     it("should be able to clone existing schema", function() {
