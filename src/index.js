@@ -43,7 +43,7 @@ function makeParser(parserFunc, docFunc) {
                 let areValidators = false;
 
                 for(let k in arguments[0]) {
-                    if(typeof arguments[0][k] == "object" && arguments[0][k].hasOwnProperty("childValidators")) {
+                    if(typeof arguments[0][k] == "object" && arguments[0][k].hasOwnProperty("$validators")) {
                         areValidators = true;
                         break;
                     }
@@ -70,16 +70,16 @@ function makeParser(parserFunc, docFunc) {
 }
 
 function Parser(parserFunc, args, childValidators, docFunc) {
-    this.parserFunc      = parserFunc;
-    this.args            = args;
-    this.childValidators = childValidators;
-    this.docFunc         = docFunc;
+    this.$parserFunc  = parserFunc;
+    this.$args        = args;
+    this.$validators  = childValidators;
+    this.$docFunc     = docFunc;
 }
 
 Parser.prototype.parse = function(data, key, first) {
     //All validators should handle opt (optional)
-    let args = merge(this.args, { opt: false });
-    let val = this.parserFunc.call(this, args, this.childValidators, data, key);
+    let args = merge(this.$args, { opt: false });
+    let val = this.$parserFunc.call(this, args, this.$validators, data, key);
     if(first && val !== null && typeof val == "object" && val.htDeleteKey) return null;
     return val;
 };
@@ -89,15 +89,15 @@ Parser.prototype.validate = function(data, key) {
 };
 
 Parser.prototype.document = function() {
-    return this.docFunc.call(this, this.args);
+    return this.$docFunc.call(this, this.$args);
 };
 
 Parser.prototype.clone = function(...params) {
 
-    let parserFunc      = clone(this.parserFunc);
-    let args            = clone(this.args);
-    let childValidators = clone(this.childValidators);
-    let docFunc         = clone(this.docFunc);
+    let parserFunc      = clone(this.$parserFunc);
+    let args            = clone(this.$args);
+    let childValidators = clone(this.$validators);
+    let docFunc         = clone(this.$docFunc);
 
     params.forEach(function(arg) {
         if(arg && typeof childValidators === 'object') {
