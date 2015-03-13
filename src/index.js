@@ -82,9 +82,11 @@ function Parser(parserFunc, args, childValidators, docFunc) {
         }.bind(this);
     }.bind(this);
 
+    this.keys = {};
+
     if(this.$validators && typeof this.$validators === "object" && !Array.isArray(this.$validators) && Object.keys(this.$validators).length) {
         for(var k in this.$validators) {
-            Object.defineProperty(this, k, {
+            Object.defineProperty(this.keys, k, {
                 get: getValidatorFn(k)
             });
         }

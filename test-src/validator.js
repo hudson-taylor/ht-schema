@@ -34,12 +34,12 @@ describe("Validator", function() {
     });
 
     for(var k in schema.$validators) {
-      let r = Object.getOwnPropertyDescriptor(schema, k);
+      let r = Object.getOwnPropertyDescriptor(schema.keys, k);
       assert.notEqual(r.get, undefined);
     }
 
     // should be able to validate specific fields
-    schema.a.validate(5);
+    schema.keys.a.validate(5);
 
   });
 

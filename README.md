@@ -58,6 +58,19 @@ An object validator that requires a foo attribute but remaps it to bar in output
 s.Object({ 'foo as bar': s.String() });
 ```
 
+#### s.Object.keys.<K>
+
+You can access object keys through 'keys' on an instance of an object.
+
+```javascript
+
+var schema = s.Object({
+    hello: s.String()
+});
+
+schema.keys.hello.validate("world");
+
+```
 
 ### s.Number { opt: false }
 
