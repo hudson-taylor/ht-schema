@@ -43,7 +43,11 @@ function makeParser(parserFunc, docFunc) {
                 let areValidators = false;
 
                 for(let k in arguments[0]) {
-                    if(typeof arguments[0][k] == "object" && arguments[0][k].hasOwnProperty("$validators")) {
+                    let arg = arguments[0][k];
+                    if(typeof arg == "object" && Object.prototype.toString.call(arg) === "[object Object]") {
+                        if(!arg.hasOwnProperty("$validators")) {
+                            arguments[0][k] = validators.Object(arg);
+                        }
                         areValidators = true;
                         break;
                     }
