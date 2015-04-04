@@ -49,7 +49,6 @@ function makeParser(parserFunc, docFunc) {
                             arguments[0][k] = validators.Object(arg);
                         }
                         areValidators = true;
-                        break;
                     }
                 }
 
