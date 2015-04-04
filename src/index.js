@@ -4,18 +4,18 @@
 const fs   = require("fs");
 const path = require("path");
 
-const clone = require('clone');
+const clone = require("clone");
 
 const merge = require("./merge");
 
+const validatorsPath = path.resolve(__dirname, "../validators");
+
+const files = fs.readdirSync(validatorsPath);
+
 let validators = {};
 
-let validatorsPath = path.resolve(__dirname, "../validators");
-
-let files = fs.readdirSync(validatorsPath);
-
 files.forEach(function(file) {
-    let t = require(path.join(validatorsPath, file));
+    const t = require(path.join(validatorsPath, file));
     validators[t.name] = makeParser(t.fn);
 });
 
@@ -26,43 +26,29 @@ function makeParser(parserFunc, docFunc) {
     // reason. Otherwise it should return a value. 
     // This value can be mutated, it will be the "validated" value.
 
-    return function validator(args, childValidators) {
+    return function validator(args = {}, childValidators = {}) {
 
         // Overly complex method of managing argument order!
-        switch(arguments.length) {
+        if(arguments.length === 1) {
 
-            case 0: {
-                childValidators = {};
-                args = {};
-                break;
-            }
+            // One argument, are they args or validators?
+            let areValidators = false;
 
-            case 1: {
-
-                // One argument, are they args or validators?
-                let areValidators = false;
-
-                for(let k in arguments[0]) {
-                    let arg = arguments[0][k];
-                    if(typeof arg == "object" && Object.prototype.toString.call(arg) === "[object Object]") {
-                        if(!arg.hasOwnProperty("$validators")) {
-                            arguments[0][k] = validators.Object(arg);
-                        }
-                        areValidators = true;
+            for(let k in arguments[0]) {
+                let arg = arguments[0][k];
+                if(typeof arg == "object" && Object.prototype.toString.call(arg) === "[object Object]") {
+                    if(!arg.hasOwnProperty("$validators")) {
+                        arguments[0][k] = validators.Object(arg);
                     }
+                    areValidators = true;
                 }
-
-                if(areValidators) {
-                    childValidators = arguments[0];
-                    args = {};
-                } else {
-                    args = arguments[0];
-                    childValidators = null;
-                }
-                break;
-
             }
-            
+
+            if(areValidators) {
+                childValidators = arguments[0];
+                args = {};
+            }
+
         }
 
         var parser = new Parser(parserFunc, args, childValidators, docFunc);
@@ -99,14 +85,14 @@ function Parser(parserFunc, args, childValidators, docFunc) {
 
 Parser.prototype.parse = function(data, key, first) {
     //All validators should handle opt (optional)
-    let args = merge(this.$args, { opt: false });
-    let val = this.$parserFunc.call(this, args, this.$validators, data, key);
+    const args = merge(this.$args, { opt: false });
+    const val = this.$parserFunc(args, this.$validators, data, key);
     if(first && val !== null && typeof val == "object" && val.htDeleteKey) return null;
     return val;
 };
 
-Parser.prototype.validate = function(data, key) {
-    return this.parse(data, key || "schema", true);
+Parser.prototype.validate = function(data, key = "schema") {
+    return this.parse(data, key, true);
 };
 
 Parser.prototype.document = function() {
