@@ -13,7 +13,7 @@ describe("Date validator", function() {
 
     it("should require value", function() {
 
-        let schema = s.Date();
+        let schema = s.Date({ opt: false });
 
         assert.throws(function() {
             schema.validate();
@@ -32,31 +32,31 @@ describe("Date validator", function() {
     });
 
     it("should accept a valid Date", function() {
-        let schema = s.Date();
+        let schema = s.Date({ opt: false });
         assert.equal(schema.validate(old).getTime(), old.getTime());
     });
 
     it("should reject an invalid Date", function() {
-        let schema = s.Date();
+        let schema = s.Date({ opt: false });
         assert.throws(function() {
             schema.validate(notADate);
         }, Error);
     });
 
     it("should accept a valid Date as a string", function() {
-        let schema = s.Date();
+        let schema = s.Date({ opt: false });
         assert.equal(schema.validate(oldString).getTime(), old.getTime());
     });
 
     it("should reject a Date less than min", function() {
-        let schema = s.Date({min: old});
+        let schema = s.Date({ min: old });
         assert.throws(function() {
             schema.validate(older);
         }, Error);
     });
 
     it("should reject a Date greater than max", function() {
-        let schema = s.Date({max: old});
+        let schema = s.Date({ max: old });
         assert.throws(function() {
             schema.validate(now);
         }, Error);

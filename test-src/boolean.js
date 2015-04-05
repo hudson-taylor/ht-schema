@@ -8,7 +8,7 @@ describe("Boolean validator", function() {
 
     it("should require value", function() {
 
-        let schema = s.Boolean();
+        let schema = s.Boolean({ opt: false });
 
         assert.throws(function() {
             schema.validate();
@@ -38,7 +38,7 @@ describe("Boolean validator", function() {
 
     it("should throw if value given is not boolean", function() {
 
-        let schema = s.Boolean();
+        let schema = s.Boolean({ opt: false });
 
         assert.throws(function() {
             schema.validate(42);
@@ -48,7 +48,7 @@ describe("Boolean validator", function() {
 
     it("should validate correctly", function() {
 
-        let schema = s.Boolean();
+        let schema = s.Boolean({ opt: false });
 
         assert.doesNotThrow(function() {
 

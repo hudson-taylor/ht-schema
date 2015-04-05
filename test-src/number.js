@@ -11,7 +11,7 @@ describe("Number validator", function() {
     let notANumber   = {};
 
     it("should require value", function() {
-        let schema = s.Number();
+        let schema = s.Number({ opt: false });
         assert.throws(function() {
             schema.validate();
         });
@@ -25,19 +25,19 @@ describe("Number validator", function() {
     });
 
     it("should accept a valid Number", function() {
-        let schema = s.Number();
+        let schema = s.Number({ opt: false });
         assert.equal(schema.validate(small), small);
     });
 
     it("should reject an invalid Number", function() {
-        let schema = s.Number();
+        let schema = s.Number({ opt: false });
         assert.throws(function() {
             schema.validate(notANumber);
         }, Error);
     });
 
     it("should accept a valid Number as a string", function() {
-        let schema = s.Number();
+        let schema = s.Number({ opt: false });
         assert.equal(schema.validate(stringNumber), 123);
     });
 

@@ -10,13 +10,20 @@ describe("String validator", function() {
     let longString  = "I am the very model of a modern major general";
     let notAString  = {};
 
+    it("should require a string", function() {
+        let schema = s.String({ opt: false });
+        assert.throws(function() {
+            schema.validate();
+        });
+    });
+
     it("should accept a valid string", function() {
-        let schema = s.String();
+        let schema = s.String({ opt: false });
         assert.equal(schema.validate(shortString), shortString);
     });
 
     it("should reject an invalid string", function() {
-        let schema = s.String();
+        let schema = s.String({ opt: false });
         assert.throws(function() {
             schema.validate(notAString);
         }, Error);
