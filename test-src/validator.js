@@ -12,7 +12,7 @@ describe("Validator", function() {
       hello: "world"
     };
 
-    var p = s.makeParser(() => {}, function(_args) {
+    var p = s.makeParser('docFuncTest', () => {}, function(_args) {
       assert.deepEqual(_args, args);
       done();
     });
@@ -196,6 +196,44 @@ describe("Validator", function() {
       newSchema2.validate({
         a: 15
       });
+
+    });
+
+  });
+
+  describe("Fast Validators", function() {
+
+    it("should require fast validator if no arguments are passed", function() {
+
+      const tests = {
+        "String":  "fastStrParser",
+        "Date":    "fastDateParser",
+        "Number":  "fastNumberParser",
+        "Email":   "fastEmailParser",
+        "Boolean": "fastBoolParser"
+      }
+
+      for(let k in tests) {
+        const schema = s[k]();
+        assert.equal(schema.$parserFunc.name, tests[k]);
+      }
+
+    });
+
+    it("should not require fast validator if arguments are passed", function() {
+
+      const tests = {
+        "String":  "strParser",
+        "Date":    "dateParser",
+        "Number":  "numParser",
+        "Email":   "emailParser",
+        "Boolean": "boolParser"
+      }
+
+      for(let k in tests) {
+        const schema = s[k]({ opt: true, some: "other_value" });
+        assert.equal(schema.$parserFunc.name, tests[k]);
+      }
 
     });
 

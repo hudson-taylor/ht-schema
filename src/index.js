@@ -16,24 +16,27 @@ let validators = {};
 
 files.forEach(function(file) {
     const t = require(path.join(validatorsPath, file));
-    validators[t.name] = makeParser(t.fn);
+    validators[t.name] = makeParser(t.name, t.fn);
 });
 
-function makeParser(parserFunc, docFunc) {
+function makeParser(parserName, parserFunc, docFunc) {
+
+    let $parserFunc = clone(parserFunc);
 
     // parserFunc takes arguments, child-validators || null, and the data to
     // parse, it should throw an Error if the data is invalid, containing a
     // reason. Otherwise it should return a value. 
     // This value can be mutated, it will be the "validated" value.
 
-    return function validator(args = {}, childValidators = {}) {
+    return function validator(args = {}, childValidators = {}, areValidators = false) {
+
+        // WARNING: 'args' cannot contain object values, or else
+        // it will be treated as a validator.
 
         // Overly complex method of managing argument order!
-        if(arguments.length === 1) {
+        if(arguments.length === 1 && !areValidators) {
 
             // One argument, are they args or validators?
-            let areValidators = false;
-
             for(let k in arguments[0]) {
                 let arg = arguments[0][k];
                 if(typeof arg == "object" && Object.prototype.toString.call(arg) === "[object Object]") {
@@ -51,7 +54,21 @@ function makeParser(parserFunc, docFunc) {
 
         }
 
-        var parser = new Parser(parserFunc, args, childValidators, docFunc);
+        if(!Object.keys(args).length) {
+
+            // If we have no custom arguments
+            // try to load the fast version
+            // of the validator.
+            const fastParserName = "Fast" + parserName;
+            const fastParserFunc = validators[fastParserName];
+
+            if(fastParserFunc) {
+                return fastParserFunc(args, childValidators, areValidators);
+            }
+
+        }
+
+        const parser = new Parser($parserFunc, args, childValidators, docFunc);
 
         return parser;
 
@@ -65,7 +82,7 @@ function Parser(parserFunc, args, childValidators, docFunc) {
     this.$validators  = childValidators;
     this.$docFunc     = docFunc;
 
-    var getValidatorFn = function(k) {
+    const getValidatorFn = function(k) {
         return function() {
             return this.$validators[k];
         }.bind(this);
@@ -74,7 +91,7 @@ function Parser(parserFunc, args, childValidators, docFunc) {
     this.keys = {};
 
     if(this.$validators && typeof this.$validators === "object" && !Array.isArray(this.$validators) && Object.keys(this.$validators).length) {
-        for(var k in this.$validators) {
+        for(let k in this.$validators) {
             Object.defineProperty(this.keys, k, {
                 get: getValidatorFn(k)
             });
@@ -110,7 +127,7 @@ Parser.prototype.clone = function(...params) {
         if(arg && typeof childValidators === 'object') {
             if(Array.isArray(arg)) {
                 // If arg is an array, it's a whitelist
-                for(var k in childValidators) {
+                for(let k in childValidators) {
                     if(!~arg.indexOf(k)) {
                         delete childValidators[k];
                     }
