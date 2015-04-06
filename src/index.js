@@ -112,6 +112,9 @@ Parser.prototype.validate = function(data, key = "schema") {
 };
 
 Parser.prototype.document = function() {
+    if(typeof this.$docFunc !== 'function') {
+      throw new Error("No document function passed to validator.");
+    }
     return this.$docFunc.call(this, this.$args);
 };
 

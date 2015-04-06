@@ -6,20 +6,36 @@ const s      = require("../");
 
 describe("Validator", function() {
 
-  it("should call docFunc with args", function(done) {
+  describe("document", function() {
 
-    let args = {
-      hello: "world"
-    };
+    it("should call docFunc with args", function(done) {
 
-    var p = s.makeParser('docFuncTest', () => {}, function(_args) {
-      assert.deepEqual(_args, args);
-      done();
+      let args = {
+        hello: "world"
+      };
+
+      var p = s.makeParser('docFuncTest', () => {}, function(_args) {
+        assert.deepEqual(_args, args);
+        done();
+      });
+
+      var schema = p(args);
+
+      schema.document();
+
     });
 
-    var schema = p(args);
+    it("should throw if no docFunc is passed", function() {
 
-    schema.document();
+      var p = s.makeParser('docFuncTest2', () => {});
+
+      var schema = p();
+
+      assert.throws(function() {
+        schema.document();
+      });
+
+    });
 
   });
 
