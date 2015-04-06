@@ -6,39 +6,6 @@ const s      = require("../");
 
 describe("Validator", function() {
 
-  describe("document", function() {
-
-    it("should call docFunc with args", function(done) {
-
-      let args = {
-        hello: "world"
-      };
-
-      var p = s.makeParser('docFuncTest', () => {}, function(_args) {
-        assert.deepEqual(_args, args);
-        done();
-      });
-
-      var schema = p(args);
-
-      schema.document();
-
-    });
-
-    it("should throw if no docFunc is passed", function() {
-
-      var p = s.makeParser('docFuncTest2', () => {});
-
-      var schema = p();
-
-      assert.throws(function() {
-        schema.document();
-      });
-
-    });
-
-  });
-
   it("should be able to access child validators of object schema", function() {
 
     let a = s.Number();
@@ -250,6 +217,89 @@ describe("Validator", function() {
         const schema = s[k]({ opt: true, some: "other_value" });
         assert.equal(schema.$parserFunc.name, tests[k]);
       }
+
+    });
+
+  });
+
+  describe("document", function() {
+
+    it("should correctly dump information for simple schema", function() {
+
+      let matches = {
+        "String": { opt: true },
+        "Number": { opt: false },
+        "Boolean": { opt: true }
+      }
+
+      for(var k in matches) {
+        var schema = s[k](matches[k]);
+        assert.deepEqual(schema.document(), {
+          name: k,
+          args: matches[k]
+        });
+      }
+
+    });
+
+    it("should correctly dump info for more complex schema", function() {
+
+      let schema = s.Object({
+        one: s.Object({
+          two: s.Object({
+            three: s.String(),
+            four:  s.Number({ opt: true })
+          })
+        })
+      });
+
+      assert.deepEqual(schema.document(), {
+        name: "Object",
+        args: {},
+        children: {
+          one: {
+            name: "Object",
+            args: {},
+            children: {
+              two: {
+                name: "Object",
+                args: {},
+                children: {
+                  three: {
+                    name: "FastString",
+                    args: {}
+                  },
+                  four: {
+                    name: "Number",
+                    args: { opt: true }
+                  }
+                }
+              }
+            }
+          }
+        }
+      });
+
+    });
+
+    it("should return children as array for Array validator", function() {
+
+      let schema = s.Array([ s.String(), s.Number() ]);
+
+      assert.deepEqual(schema.document(), {
+        name: "Array",
+        args: {},
+        children: [
+          {
+            name: "FastString",
+            args: {}
+          },
+          {
+            name: "FastNumber",
+            args: {}
+          }
+        ]
+      });
 
     });
 
