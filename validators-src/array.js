@@ -50,6 +50,8 @@ function arrayParser(args, childValidators, data, key) {
     return out;
 }
 
+arrayParser.hasChildValidators = true;
+
 export default {
     name: "Array",
     fn:   arrayParser

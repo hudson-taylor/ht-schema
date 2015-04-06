@@ -90,6 +90,8 @@ function objParser(args, childValidators, data, key) {
 
 }
 
+objParser.hasChildValidators = true;
+
 export default {
     name: "Object",
     fn:   objParser

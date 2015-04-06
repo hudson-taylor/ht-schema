@@ -26,29 +26,30 @@ function makeParser(parserName, parserFunc, docFunc) {
     // reason. Otherwise it should return a value. 
     // This value can be mutated, it will be the "validated" value.
 
-    return function validator(args = {}, childValidators = {}, areValidators = false) {
+    return function validator(args = {}, childValidators = {}, areValidators) {
 
-        // WARNING: 'args' cannot contain object values, or else
-        // it will be treated as a validator.
+        if(parserFunc.hasChildValidators === true) {
 
-        // Overly complex method of managing argument order!
-        if(arguments.length === 1 && !areValidators) {
+          // Overly complex method of managing argument order!
+          if(arguments.length === 1 && !areValidators) {
 
-            // One argument, are they args or validators?
-            for(let k in arguments[0]) {
-                let arg = arguments[0][k];
-                if(typeof arg == "object" && Object.prototype.toString.call(arg) === "[object Object]") {
-                    if(!arg.hasOwnProperty("$validators")) {
-                        arguments[0][k] = validators.Object(arg);
-                    }
-                    areValidators = true;
-                }
-            }
+              // One argument, are they args or validators?
+              for(let k in arguments[0]) {
+                  let arg = arguments[0][k];
+                  if(typeof arg == "object" && Object.prototype.toString.call(arg) === "[object Object]") {
+                      if(!arg.hasOwnProperty("$validators")) {
+                          arguments[0][k] = validators.Object(arg);
+                      }
+                      areValidators = true;
+                  }
+              }
 
-            if(areValidators) {
-                childValidators = arguments[0];
-                args = {};
-            }
+              if(areValidators) {
+                  childValidators = arguments[0];
+                  args = {};
+              }
+
+          }
 
         }
 
