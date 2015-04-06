@@ -21,8 +21,6 @@ files.forEach(function(file) {
 
 function makeParser(parserName, parserFunc, docFunc) {
 
-    let $parserFunc = clone(parserFunc);
-
     // parserFunc takes arguments, child-validators || null, and the data to
     // parse, it should throw an Error if the data is invalid, containing a
     // reason. Otherwise it should return a value. 
@@ -68,7 +66,7 @@ function makeParser(parserName, parserFunc, docFunc) {
 
         }
 
-        const parser = new Parser($parserFunc, args, childValidators, docFunc);
+        const parser = new Parser(parserFunc, args, childValidators, docFunc);
 
         return parser;
 
