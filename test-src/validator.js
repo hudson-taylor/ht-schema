@@ -305,4 +305,60 @@ describe("Validator", function() {
 
   });
 
+  describe("comment", function() {
+
+    it("should allow adding comment to validator", function() {
+
+      let schema = s.Object({
+        hello: s.String().comment('hello')
+      });
+
+      assert.deepEqual(schema.document(), {
+        name: "Object",
+        args: {},
+        children: {
+          hello: {
+            name: "FastString",
+            args: {},
+            comment: "hello"
+          }
+        }
+      });
+
+    });
+
+    it("should allow comment to be a function", function() {
+
+      let args = {
+        hello: "world!!!!!$"
+      };
+
+      let commentFn = function(obj) {
+        return {
+          hello: obj.args
+        }
+      }
+
+      let schema = s.Object({
+        key: s.String(args).comment(commentFn)
+      });
+
+      assert.deepEqual(schema.document(), {
+        name: "Object",
+        args: {},
+        children: {
+          key: {
+            name: "String",
+            args: args,
+            comment: {
+              hello: args
+            }
+          }
+        }
+      });
+
+    });
+
+  });
+
 });

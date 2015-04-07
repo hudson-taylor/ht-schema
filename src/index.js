@@ -125,6 +125,9 @@ Parser.prototype.document = function() {
   } else if(Object.keys(children).length) {
     obj.children = children;
   }
+  if(this.$comment) {
+    obj.comment = typeof this.$comment === 'function' ? this.$comment(obj) : this.$comment;
+  }
   return obj;
 };
 
@@ -153,6 +156,11 @@ Parser.prototype.clone = function(...params) {
     return new Parser(this.$name, parserFunc, args, childValidators);
 
 };
+
+Parser.prototype.comment = function(comment) {
+  this.$comment = comment;
+  return this;
+}
 
 validators.makeParser = makeParser;
 module.exports = validators;
