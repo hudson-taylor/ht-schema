@@ -37,6 +37,13 @@ function makeParser(parserName, parserFunc, docFunc) {
               for(let k in arguments[0]) {
                   let arg = arguments[0][k];
                   if(typeof arg == "object" && Object.prototype.toString.call(arg) === "[object Object]") {
+                      // TODO: if any args have a value that
+                      // is an object, they will be parsed
+                      // as validators... not good.
+                      // HACK: Explicitly allow 'default' to be an object.
+                      if(k == 'default') {
+                        continue;
+                      }
                       if(!arg.hasOwnProperty("$validators")) {
                           arguments[0][k] = validators.Object(arg);
                       }
