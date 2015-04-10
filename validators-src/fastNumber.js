@@ -3,13 +3,13 @@
 
 function fastNumberParser(args, childValidators, data) {
 
-    data = Number(data);
+    let d = Number(data);
 
-    if(isNaN(data)) {
-        throw new Error("required Number, got: " + typeof data);
+    if(isNaN(d)) {
+      throw new Error("required Number, received " + typeof data);
     }
 
-    return data;
+    return d;
 
 }
 
