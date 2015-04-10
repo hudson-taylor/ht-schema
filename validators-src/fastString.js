@@ -4,7 +4,7 @@
 function fastStrParser(args, childValidators, data) {
 
     // If we have no data, and this value is not optional, throw
-    if(!data) {
+    if(!data && data !== "") {
         throw new Error("required String");
     }
 
