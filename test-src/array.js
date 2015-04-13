@@ -94,4 +94,28 @@ describe("Array validator", function() {
 
     });
 
+    it("should match one of the validators", function() {
+
+        let schema = s.Array([ s.String(), s.Object(), s.Number() ]);
+
+        schema.validate([ 5, 50 ]);
+
+    });
+
+    it("should return error if array does not match", function() {
+
+        let schema = s.Array([ s.Boolean(), s.Boolean() ]);
+
+        schema.validate([ true, false ]);
+
+        assert.throws(function() {
+            schema.validate([ "hello" ]);
+        });
+
+        assert.throws(function() {
+            schema.validate([ true, false, "three" ]);
+        });
+
+    });
+
 });

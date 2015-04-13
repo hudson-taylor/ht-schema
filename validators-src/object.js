@@ -5,7 +5,7 @@ const merge     = require("../lib/merge");
 const DELETEKEY = require("../lib/deleteKey");
 
 function objParser(args, childValidators, data, key) {
-    childValidators = childValidators || {};
+
     function validator(k) {
         //returns a keyname and corresponding validator for a key, or null
         for(let key in childValidators) {

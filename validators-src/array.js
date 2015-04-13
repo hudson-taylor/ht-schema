@@ -4,7 +4,7 @@
 const DELETEKEY = require("../lib/deleteKey");
 
 function arrayParser(args, childValidators, data, key) {
-    childValidators = childValidators || [];
+
     let out = [];
 
     if(!Array.isArray(data)) {
@@ -42,6 +42,7 @@ function arrayParser(args, childValidators, data, key) {
                 }
             }
         }
+
         if(!matched) {
             //We couldn't parse data[i] !
             throw new Error("No matching validator for " + key + "[" + i + "]");

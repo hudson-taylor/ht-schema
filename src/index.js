@@ -114,8 +114,8 @@ Parser.prototype.parse = function(data, key, first) {
     return val;
 };
 
-Parser.prototype.validate = function(data, key = "schema") {
-    return this.parse(data, key, true);
+Parser.prototype.validate = function(data, key) {
+    return this.parse(data, key || "schema", true);
 };
 
 Parser.prototype.document = function() {

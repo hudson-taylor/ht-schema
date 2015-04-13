@@ -157,4 +157,24 @@ describe("Object validator", function() {
 
     });
 
+    it("should allow default option for child validators", function() {
+
+        let schema = s.Object({
+            hello: s.String({ opt: true, default: "world" })
+        });
+
+        let schema2 = s.Object({
+            obj: s.Object({ opt: true , default: {} })
+        });
+
+        assert.deepEqual(schema.validate({}), {
+            hello: "world"
+        });
+
+        assert.deepEqual(schema2.validate({}), {
+            obj: {}
+        });
+
+    });
+
 });
