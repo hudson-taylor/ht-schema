@@ -19,7 +19,7 @@ files.forEach(function(file) {
     validators[t.name] = makeParser(t.name, t.fn);
 });
 
-function makeParser(parserName, parserFunc, docFunc) {
+function makeParser(parserName, parserFunc) {
 
     // parserFunc takes arguments, child-validators || null, and the data to
     // parse, it should throw an Error if the data is invalid, containing a
@@ -74,19 +74,19 @@ function makeParser(parserName, parserFunc, docFunc) {
 
         }
 
-        const parser = new Parser(parserFunc, args, childValidators, docFunc);
+        const parser = new Parser(parserName, parserFunc, args, childValidators);
 
         return parser;
 
     };
 }
 
-function Parser(parserFunc, args, childValidators, docFunc) {
+function Parser(name, parserFunc, args, childValidators) {
 
+    this.$name        = name;
     this.$parserFunc  = parserFunc;
     this.$args        = args;
     this.$validators  = childValidators;
-    this.$docFunc     = docFunc;
 
     const getValidatorFn = function(k) {
         return function() {
@@ -119,10 +119,23 @@ Parser.prototype.validate = function(data, key) {
 };
 
 Parser.prototype.document = function() {
-    if(typeof this.$docFunc !== 'function') {
-      throw new Error("No document function passed to validator.");
-    }
-    return this.$docFunc.call(this, this.$args);
+  let obj = {
+    name: this.$name,
+    args: this.$args
+  }
+  let children = {};
+  for(let k in this.$validators) {
+    children[k] = this.$validators[k].document();
+  }
+  if(this.$name === "Array") {
+    obj.children = Object.keys(children).map((k) => children[k]);
+  } else if(Object.keys(children).length) {
+    obj.children = children;
+  }
+  if(this.$comment) {
+    obj.comment = typeof this.$comment === 'function' ? this.$comment(obj) : this.$comment;
+  }
+  return obj;
 };
 
 Parser.prototype.clone = function(...params) {
@@ -130,7 +143,6 @@ Parser.prototype.clone = function(...params) {
     let parserFunc      = clone(this.$parserFunc);
     let args            = clone(this.$args);
     let childValidators = clone(this.$validators);
-    let docFunc         = clone(this.$docFunc);
 
     params.forEach(function(arg) {
         if(arg && typeof childValidators === 'object') {
@@ -148,9 +160,14 @@ Parser.prototype.clone = function(...params) {
         }
     });
 
-    return new Parser(parserFunc, args, childValidators, docFunc);
+    return new Parser(this.$name, parserFunc, args, childValidators);
 
 };
+
+Parser.prototype.comment = function(comment) {
+  this.$comment = comment;
+  return this;
+}
 
 validators.makeParser = makeParser;
 module.exports = validators;
