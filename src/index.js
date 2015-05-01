@@ -3,6 +3,7 @@
 
 const fs   = require("fs");
 const path = require("path");
+const util = require("util");
 
 const clone = require("clone");
 
@@ -16,10 +17,10 @@ let validators = {};
 
 files.forEach(function(file) {
     const t = require(path.join(validatorsPath, file));
-    validators[t.name] = makeParser(t.name, t.fn);
+    validators[t.name] = makeValidator(t.name, t.fn);
 });
 
-function makeParser(parserName, parserFunc) {
+function makeValidator(parserName, parserFunc) {
 
     // parserFunc takes arguments, child-validators || null, and the data to
     // parse, it should throw an Error if the data is invalid, containing a
@@ -169,5 +170,6 @@ Parser.prototype.comment = function(comment) {
   return this;
 }
 
-validators.makeParser = makeParser;
+validators.makeValidator = makeValidator;
+validators.makeParser = util.deprecate(makeValidator, "makeParser() has been deprecated, use makeValidator() instead.");
 module.exports = validators;
