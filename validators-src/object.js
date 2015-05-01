@@ -4,7 +4,7 @@
 const merge     = require("../lib/merge");
 const DELETEKEY = require("../lib/deleteKey");
 
-function objParser(args, childValidators, data, key) {
+function objValidator(args, childValidators, data, key) {
 
     function validator(k) {
         //returns a keyname and corresponding validator for a key, or null
@@ -90,9 +90,9 @@ function objParser(args, childValidators, data, key) {
 
 }
 
-objParser.hasChildValidators = true;
+objValidator.hasChildValidators = true;
 
 export default {
     name: "Object",
-    fn:   objParser
+    fn:   objValidator
 };

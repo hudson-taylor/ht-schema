@@ -6,7 +6,7 @@ const sanitizer = require("sanitizer");
 const merge     = require("../lib/merge");
 const DELETEKEY = require("../lib/deleteKey");
 
-function strParser(args, childValidators, data) {
+function strValidator(args, childValidators, data) {
 
     // Merge optional values into args so we can still test for them
     args = merge(args, { len: null, min: null, max: null, enum: null, trim: null, lower: null, upper: null, regex: null });
@@ -102,5 +102,5 @@ function strParser(args, childValidators, data) {
 
 export default {
     name: "String",
-    fn:   strParser
+    fn:   strValidator
 };

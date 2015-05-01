@@ -3,7 +3,7 @@
 
 const DELETEKEY = require("../lib/deleteKey");
 
-function anyParser(args, childValidators, data) {
+function anyValidator(args, childValidators, data) {
 
   if(data === undefined) {
     if(args.opt) {
@@ -18,5 +18,5 @@ function anyParser(args, childValidators, data) {
 
 export default {
   name: "Any",
-  fn:   anyParser
+  fn:   anyValidator
 };

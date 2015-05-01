@@ -1,7 +1,7 @@
 
 "use strict";
 
-function fastNumberParser(args, childValidators, data) {
+function fastNumberValidator(args, childValidators, data) {
 
     let d = Number(data);
 
@@ -15,5 +15,5 @@ function fastNumberParser(args, childValidators, data) {
 
 export default {
     name: "FastNumber",
-    fn:   fastNumberParser
+    fn:   fastNumberValidator
 };

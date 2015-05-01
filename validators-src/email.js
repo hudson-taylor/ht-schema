@@ -6,7 +6,7 @@ const isemail = require("isemail");
 const merge     = require("../lib/merge");
 const DELETEKEY = require("../lib/deleteKey");
 
-function emailParser(args, childValidators, data) {
+function emailValidator(args, childValidators, data) {
     args = merge(args, { normalize: true });
 
     if(data === undefined) {
@@ -38,5 +38,5 @@ function emailParser(args, childValidators, data) {
 
 export default {
     name: "Email",
-    fn:   emailParser
+    fn:   emailValidator
 };

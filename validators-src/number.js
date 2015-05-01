@@ -4,7 +4,7 @@
 const merge     = require("../lib/merge");
 const DELETEKEY = require("../lib/deleteKey");
 
-function numParser(args, childValidators, data) {
+function numValidator(args, childValidators, data) {
     args = merge(args, { min: null, max: null });
 
     if(data === undefined) {
@@ -28,5 +28,5 @@ function numParser(args, childValidators, data) {
 
 export default {
     name: "Number",
-    fn:   numParser
+    fn:   numValidator
 };

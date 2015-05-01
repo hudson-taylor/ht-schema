@@ -3,7 +3,7 @@
 
 const DELETEKEY = require("../lib/deleteKey");
 
-function boolParser(args, childValidators, data) {
+function boolValidator(args, childValidators, data) {
 
     if(data === undefined) {
         if(args.opt) {
@@ -26,5 +26,5 @@ function boolParser(args, childValidators, data) {
 
 export default {
     name: "Boolean",
-    fn:   boolParser
+    fn:   boolValidator
 };

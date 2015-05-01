@@ -1,7 +1,7 @@
 
 "use strict";
 
-function fastDateParser(args, childValidators, data) {
+function fastDateValidator(args, childValidators, data) {
 
     let d = new Date(data);
 
@@ -15,5 +15,5 @@ function fastDateParser(args, childValidators, data) {
 
 export default {
     name: "FastDate",
-    fn:   fastDateParser
+    fn:   fastDateValidator
 };

@@ -4,7 +4,7 @@
 const merge     = require("../lib/merge");
 const DELETEKEY = require("../lib/deleteKey");
 
-function dateParser(args, childValidators, data) {
+function dateValidator(args, childValidators, data) {
 
     args = merge(args, { min: null, max: null });
 
@@ -31,5 +31,5 @@ function dateParser(args, childValidators, data) {
 
 export default {
     name: "Date",
-    fn:   dateParser
+    fn:   dateValidator
 };

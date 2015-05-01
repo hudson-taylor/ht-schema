@@ -189,16 +189,16 @@ describe("Validator", function() {
     it("should require fast validator if no arguments are passed", function() {
 
       const tests = {
-        "String":  "fastStrParser",
-        "Date":    "fastDateParser",
-        "Number":  "fastNumberParser",
-        "Email":   "fastEmailParser",
-        "Boolean": "fastBoolParser"
+        "String":  "fastStrValidator",
+        "Date":    "fastDateValidator",
+        "Number":  "fastNumberValidator",
+        "Email":   "fastEmailValidator",
+        "Boolean": "fastBoolValidator"
       }
 
       for(let k in tests) {
         const schema = s[k]();
-        assert.equal(schema.$parserFunc.name, tests[k]);
+        assert.equal(schema.$validatorFunc.name, tests[k]);
       }
 
     });
@@ -206,16 +206,16 @@ describe("Validator", function() {
     it("should not require fast validator if arguments are passed", function() {
 
       const tests = {
-        "String":  "strParser",
-        "Date":    "dateParser",
-        "Number":  "numParser",
-        "Email":   "emailParser",
-        "Boolean": "boolParser"
+        "String":  "strValidator",
+        "Date":    "dateValidator",
+        "Number":  "numValidator",
+        "Email":   "emailValidator",
+        "Boolean": "boolValidator"
       }
 
       for(let k in tests) {
         const schema = s[k]({ opt: true, some: "other_value" });
-        assert.equal(schema.$parserFunc.name, tests[k]);
+        assert.equal(schema.$validatorFunc.name, tests[k]);
       }
 
     });

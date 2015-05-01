@@ -3,7 +3,7 @@
 
 const DELETEKEY = require("../lib/deleteKey");
 
-function typedArrayParser(args, childValidators, data, key) {
+function typedArrayValidator(args, childValidators, data, key) {
 
     let out = [];
 
@@ -31,9 +31,9 @@ function typedArrayParser(args, childValidators, data, key) {
 
 }
 
-typedArrayParser.hasChildValidators = true;
+typedArrayValidator.hasChildValidators = true;
 
 export default {
     name: "TypedArray",
-    fn:   typedArrayParser
+    fn:   typedArrayValidator
 };

@@ -3,7 +3,7 @@
 
 const isemail = require("isemail");
 
-function fastEmailParser(args, childValidators, data) {
+function fastEmailValidator(args, childValidators, data) {
 
     let type = typeof data;
 
@@ -23,5 +23,5 @@ function fastEmailParser(args, childValidators, data) {
 
 export default {
     name: "FastEmail",
-    fn:   fastEmailParser
+    fn:   fastEmailValidator
 };

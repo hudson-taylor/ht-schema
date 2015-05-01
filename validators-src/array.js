@@ -3,7 +3,7 @@
 
 const DELETEKEY = require("../lib/deleteKey");
 
-function arrayParser(args, childValidators, data, key) {
+function arrayValidator(args, childValidators, data, key) {
 
     let out = [];
 
@@ -51,9 +51,9 @@ function arrayParser(args, childValidators, data, key) {
     return out;
 }
 
-arrayParser.hasChildValidators = true;
+arrayValidator.hasChildValidators = true;
 
 export default {
     name: "Array",
-    fn:   arrayParser
+    fn:   arrayValidator
 };

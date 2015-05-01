@@ -1,7 +1,7 @@
 
 "use strict";
 
-function fastStrParser(args, childValidators, data) {
+function fastStrValidator(args, childValidators, data) {
 
     // If we have no data, and this value is not optional, throw
     if(!data && data !== "") {
@@ -22,5 +22,5 @@ function fastStrParser(args, childValidators, data) {
 
 export default {
     name: "FastString",
-    fn:   fastStrParser
+    fn:   fastStrValidator
 };
