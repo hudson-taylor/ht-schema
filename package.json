@@ -1,6 +1,6 @@
 {
   "name": "ht-schema",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "ht-schema",
   "main": "lib/index.js",
   "directories": {
@@ -46,10 +46,10 @@
     "sanitizer": "^0.1.2"
   },
   "devDependencies": {
-    "babel": "^4.7.3",
+    "babel": "^5.3.3",
     "coveralls": "^2.11.2",
-    "istanbul": "^0.3.5",
-    "karma": "^0.12.31",
+    "istanbul": "^0.3.14",
+    "karma": "^0.12.32",
     "mocha": "^2.1.0"
   }
 }

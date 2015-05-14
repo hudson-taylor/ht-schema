@@ -75,9 +75,7 @@ function makeValidator(validatorName, validatorFunc) {
 
         }
 
-        const validator = new Validator(validatorName, validatorFunc, args, childValidators);
-
-        return validator;
+        return new Validator(validatorName, validatorFunc, args, childValidators);
 
     };
 }
