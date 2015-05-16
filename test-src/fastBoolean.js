@@ -6,27 +6,27 @@ const s      = require("../");
 
 describe("FastBoolean validator", function() {
 
-    it("should require value", function() {
+  it("should require value", function() {
 
-        let schema = s.FastBoolean();
+    let schema = s.FastBoolean();
 
-        assert.throws(function() {
-            schema.validate();
-        });
+    assert.throws(function() {
+      schema.validate();
+    });
+
+  });
+
+  it("should validate correctly", function() {
+
+    let schema = s.FastBoolean();
+
+    assert.doesNotThrow(function() {
+
+      schema.validate(true);
+      schema.validate(false);
 
     });
 
-    it("should validate correctly", function() {
-
-        let schema = s.FastBoolean();
-
-        assert.doesNotThrow(function() {
-
-            schema.validate(true);
-            schema.validate(false);
-
-        });
-
-    });
+  });
 
 });

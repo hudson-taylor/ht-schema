@@ -5,23 +5,23 @@ const isemail = require("isemail");
 
 function fastEmailValidator(args, childValidators, data) {
 
-    let type = typeof data;
+  let type = typeof data;
 
-    if(type !== "string") {
-        throw new Error("required Email (string): got " + type);
-    }
+  if(type !== "string") {
+    throw new Error("required Email (string): got " + type);
+  }
 
-    data = data.trim().toLowerCase();
+  data = data.trim().toLowerCase();
 
-    if(!isemail(data)) {
-        throw new Error("Invalid Email: " + data);
-    }
+  if(!isemail(data)) {
+    throw new Error("Invalid Email: " + data);
+  }
 
-    return data;
+  return data;
 
 }
 
 export default {
-    name: "FastEmail",
-    fn:   fastEmailValidator
+  name: "FastEmail",
+  fn:   fastEmailValidator
 };
