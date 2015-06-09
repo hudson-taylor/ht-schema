@@ -126,7 +126,7 @@ Validator.prototype.document = function() {
   for(let k in this.$validators) {
     children[k] = this.$validators[k].document();
   }
-  if(this.$name === "Array") {
+  if(this.$name === "Array" || this.$name === "TypedArray") {
     obj.children = Object.keys(children).map((k) => children[k]);
   } else if(Object.keys(children).length) {
     obj.children = children;

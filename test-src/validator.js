@@ -303,6 +303,27 @@ describe("Validator", function() {
 
     });
 
+    it("should return children as array for TypedArray validator", function() {
+
+      let schema = s.TypedArray([ s.String(), s.Number() ]);
+
+      assert.deepEqual(schema.document(), {
+        name: "TypedArray",
+        args: {},
+        children: [
+          {
+            name: "FastString",
+            args: {}
+          },
+          {
+            name: "FastNumber",
+            args: {}
+          }
+        ]
+      });
+
+    });
+
   });
 
   describe("comment", function() {
