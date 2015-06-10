@@ -170,5 +170,4 @@ Validator.prototype.comment = function(comment) {
 }
 
 validators.makeValidator = makeValidator;
-validators.makeParser = util.deprecate(makeValidator, "makeParser() has been deprecated, use makeValidator() instead.");
 module.exports = validators;
