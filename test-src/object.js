@@ -138,24 +138,6 @@ describe("Object validator", function() {
     assert.deepEqual(ownerSchema.validate(catOwner), catOwner);
   });
 
-  it("should allow js-object as child and wrap automatically", function() {
-
-    let schema = s.Object({
-      hello: {
-        world: s.String()
-      },
-      world: {
-        hello: s.String()
-      }
-    });
-
-    assert.deepEqual(schema.validate({
-      hello: { world: "+1" },
-      world: { hello: "-1" }
-    }), { hello: { world: "+1" }, world: { hello: "-1" } });
-
-  });
-
   it("should allow default option for child validators", function() {
 
     let schema = s.Object({

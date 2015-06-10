@@ -27,41 +27,30 @@ function makeValidator(validatorName, validatorFunc) {
   // reason. Otherwise it should return a value.
   // This value can be mutated, it will be the "validated" value.
 
-  return function validator(args = {}, childValidators = {}, areValidators) {
+  return function validator(...args) {
 
-    if(validatorFunc.hasChildValidators) {
+    let opts = {}, childValidators = {};
 
-      // Overly complex method of managing argument order!
-      if(arguments.length === 1 && !areValidators) {
+    for(let i = 0; i < args.length; i++) {
 
-        // One argument, are they args or validators?
-        for(let k in arguments[0]) {
-          let arg = arguments[0][k];
-          if(typeof arg == "object" && Object.prototype.toString.call(arg) === "[object Object]") {
-            // TODO: if any args have a value that
-            // is an object, they will be parsed
-            // as validators... not good.
-            // HACK: Explicitly allow 'default' to be an object.
-            if(k == 'default') {
-              continue;
-            }
-            if(!arg.hasOwnProperty("$validators")) {
-              arguments[0][k] = validators.Object(arg);
-            }
-            areValidators = true;
-          }
-        }
+      let arg = args[i];
 
-        if(areValidators) {
-          childValidators = arguments[0];
-          args = {};
+      if((validatorFunc.hasChildValidators == 'array' && Array.isArray(arg)) || (typeof arg === validatorFunc.hasChildValidators)) {
+
+        if(Object.keys(arg).every(function(k) {
+          return arg[k].hasOwnProperty('$validators');
+        })) {
+          childValidators = arg;
+          continue;
         }
 
       }
 
+      opts = arg;
+
     }
 
-    if(!Object.keys(args).length) {
+    if(!Object.keys(opts).length) {
 
       // If we have no custom arguments
       // try to load the fast version
@@ -70,12 +59,12 @@ function makeValidator(validatorName, validatorFunc) {
       const fastValidatorFunc = validators[fastValidatorName];
 
       if(fastValidatorFunc) {
-        return fastValidatorFunc(args, childValidators, areValidators);
+        return fastValidatorFunc(opts, childValidators);
       }
 
     }
 
-    return new Validator(validatorName, validatorFunc, args, childValidators);
+    return new Validator(validatorName, validatorFunc, opts, childValidators);
 
   };
 }
