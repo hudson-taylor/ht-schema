@@ -19,8 +19,10 @@ describe("Any validator", function() {
   });
 
   it("should allow any value", function() {
-    let schema = s.Array([ s.Any() ]);
-    schema.validate([ true, 5, "hello" ]);
+    let schema = s.Any();
+    schema.validate(true);
+    schema.validate(5);
+    schema.validate("hello");
   });
 
 });
