@@ -19,7 +19,7 @@ function arrayValidator(args, childValidators, data, key) {
   }
 
   if(typeof args.minLength == 'number' && data.length < args.minLength) {
-    throw new Error("required array wtith minimum " + args.length + " items, got: " + data.length);
+    throw new Error("required array with minimum " + args.length + " items, got: " + data.length);
   }
 
   if(typeof args.maxLength == 'number' && data.length > args.maxLength) {
