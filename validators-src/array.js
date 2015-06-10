@@ -51,7 +51,7 @@ function arrayValidator(args, childValidators, data, key) {
   return out;
 }
 
-arrayValidator.hasChildValidators = true;
+arrayValidator.hasChildValidators = 'array';
 
 export default {
   name: "Array",

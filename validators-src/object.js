@@ -90,7 +90,7 @@ function objValidator(args, childValidators, data, key) {
 
 }
 
-objValidator.hasChildValidators = true;
+objValidator.hasChildValidators = 'object';
 
 export default {
   name: "Object",

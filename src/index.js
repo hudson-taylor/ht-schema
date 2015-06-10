@@ -29,7 +29,7 @@ function makeValidator(validatorName, validatorFunc) {
 
   return function validator(args = {}, childValidators = {}, areValidators) {
 
-    if(validatorFunc.hasChildValidators === true) {
+    if(validatorFunc.hasChildValidators) {
 
       // Overly complex method of managing argument order!
       if(arguments.length === 1 && !areValidators) {
@@ -126,7 +126,8 @@ Validator.prototype.document = function() {
   for(let k in this.$validators) {
     children[k] = this.$validators[k].document();
   }
-  if(this.$name === "Array" || this.$name === "TypedArray") {
+
+  if(this.$validatorFunc.hasChildValidators === "array") {
     obj.children = Object.keys(children).map((k) => children[k]);
   } else if(Object.keys(children).length) {
     obj.children = children;

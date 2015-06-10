@@ -31,7 +31,7 @@ function typedArrayValidator(args, childValidators, data, key) {
 
 }
 
-typedArrayValidator.hasChildValidators = true;
+typedArrayValidator.hasChildValidators = 'array';
 
 export default {
   name: "TypedArray",
