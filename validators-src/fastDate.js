@@ -3,13 +3,11 @@
 
 function fastDateValidator(args, childValidators, data) {
 
-  let d = new Date(data);
-
-  if(!(d instanceof Date) || isNaN(d.getTime())) {
-    throw new Error("required date or Date compatible string, received (" + typeof data + ") " + data.toString());
+  if(Object.prototype.toString.call(data) !== '[object Date]') {
+    throw new Error("required date, received (" + typeof data + ") " + data.toString());
   }
 
-  return d;
+  return data;
     
 }
 

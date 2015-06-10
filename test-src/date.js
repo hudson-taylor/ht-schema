@@ -6,7 +6,6 @@ const s      = require("../");
 
 describe("Date validator", function() {
   let old       = new Date("1979");
-  let oldString = "1979";
   let older     = new Date("1970");
   let now       = new Date();
   let notADate  = { dinosaur: "rawwwr" };
@@ -43,11 +42,6 @@ describe("Date validator", function() {
     }, Error);
   });
 
-  it("should accept a valid Date as a string", function() {
-    let schema = s.Date({ opt: false });
-    assert.equal(schema.validate(oldString).getTime(), old.getTime());
-  });
-
   it("should reject a Date less than min", function() {
     let schema = s.Date({ min: old });
     assert.throws(function() {
@@ -61,4 +55,34 @@ describe("Date validator", function() {
       schema.validate(now);
     }, Error);
   });
+
+  it("should reject non-date if parse if not true", function() {
+
+    let schema = s.Date();
+
+    assert.throws(function() {
+      schema.validate("Wed Jun 10 2015 20:36:48 GMT+1000 (AEST)");
+    });
+
+  });
+
+  it("should accept non-date if parse is true", function() {
+
+    let schema = s.Date({ parse: true });
+    let date = schema.validate("Wed Jun 10 2015 20:36:48 GMT+1000 (AEST)");
+
+    assert.equal(date.getMinutes(), 36);
+
+  });
+
+  it("should reject non-date compatible string if parse is true", function() {
+
+    let schema = s.Date({ parse: true });
+
+    assert.throws(function() {
+      schema.validate("hello");
+    });
+
+  });
+
 });

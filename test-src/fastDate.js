@@ -32,9 +32,4 @@ describe("FastDate validator", function() {
     }, Error);
   });
 
-  it("should accept a valid Date as a string", function() {
-    let schema = s.FastDate();
-    assert.equal(schema.validate(oldString).getTime(), old.getTime());
-  });
-
 });
