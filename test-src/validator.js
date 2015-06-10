@@ -382,4 +382,69 @@ describe("Validator", function() {
 
   });
 
+  describe("async", function() {
+
+    it("should call callback with data if callback is passed", function(done) {
+
+      let schema = s.Object({
+        hello: s.String()
+      });
+
+      schema.validate({
+        hello: "world"
+      }, function(err, val) {
+        assert.ifError(err);
+        assert.deepEqual(val, { hello: "world" });
+        done();
+      });
+
+    });
+
+    it("should call callback with error if validation fails", function(done) {
+
+      let schema = s.Object({
+        hello: s.String()
+      });
+
+      schema.validate("hello", function(err) {
+        assert.equal(err.message, "must be an object, received string");
+        done();
+      });
+
+    });
+
+    it("should work for complex schema", function(done) {
+
+      let schema = s.Object({
+        ta: s.TypedArray([ s.String(), s.Boolean(), s.Number() ]),
+        obj: s.Object({
+          a: s.Array([ s.Date() ])
+        }),
+        b: s.Boolean()
+      });
+
+      let now = new Date();
+
+      schema.validate({
+        ta: [ "hello", true, 42 ],
+        obj: {
+          a: [ now ]
+        },
+        b: false
+      }, function(err, result) {
+        assert.ifError(err);
+        assert.deepEqual(result, {
+          ta: [ "hello", true, 42 ],
+          obj: {
+            a: [ now ]
+          },
+          b: false
+        });
+        done();
+      });
+
+    });
+
+  });
+
 });

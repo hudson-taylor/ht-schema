@@ -102,8 +102,29 @@ Validator.prototype.parse = function(data, key, first) {
   return val;
 };
 
-Validator.prototype.validate = function(data, key) {
-    return this.parse(data, key || "schema", true);
+Validator.prototype.validate = function(data, key, callback) {
+  if(typeof key === 'function') {
+    callback = key;
+    key = undefined;
+  }
+  function fin(err, res) {
+    if(callback) {
+      return setImmediate(() => callback(err, res));
+    } else {
+      if(err) {
+        throw err;
+      } else {
+        return res;
+      }
+    }
+  }
+  let val;
+  try {
+    val = this.parse(data, key || "schema", true);
+  } catch(e) {
+    return fin(e);
+  }
+  return fin(null, val);
 };
 
 Validator.prototype.document = function() {
