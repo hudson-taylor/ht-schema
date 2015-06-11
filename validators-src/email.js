@@ -13,13 +13,13 @@ function emailValidator(args, childValidators, data) {
     if(args.opt) {
         return DELETEKEY;
     }
-    throw new Error("required Email address");
+    throw new Error("Got undefined, required Email (string)");
   }
 
   let type = typeof data;
 
   if(type !== "string") {
-    throw new Error("required String Email: got " + type);
+    throw new Error(`Got ${type}, required Email (string)`);
   }
 
   data = data.trim();

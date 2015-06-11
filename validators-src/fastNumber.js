@@ -6,7 +6,7 @@ function fastNumberValidator(args, childValidators, data) {
   let d = Number(data);
 
   if(isNaN(d)) {
-    throw new Error("required Number, received " + typeof data);
+    throw new Error(`Got ${typeof data}, required Number`);
   }
 
   return d;

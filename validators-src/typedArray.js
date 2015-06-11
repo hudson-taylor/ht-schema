@@ -11,11 +11,12 @@ function typedArrayValidator(args, childValidators, data, key) {
     if(args.opt) {
       return DELETEKEY;
     }
-    throw new Error("required Array");
+    let t = data === null ? 'null' : typeof data;
+    throw new Error(`Got ${t}, expected Array`);
   }
 
   if(data.length !== childValidators.length) {
-    throw new Error("Got " + data.length + " elements, expected " + childValidators.length);
+    throw new Error(`Got ${data.length} elements, expected ${childValidators.length}`);
   }
 
   for(var i = 0; i < childValidators.length; i++) {
@@ -23,7 +24,7 @@ function typedArrayValidator(args, childValidators, data, key) {
     try {
       out.push(childValidators[i].parse(data[i], keyId));
     } catch(e) {
-      throw new Error("Error validating element in position " + i + ": " + e.message);
+      throw new Error(`Error validating element ${keyId}: ${e.message}`);
     }
   }
 

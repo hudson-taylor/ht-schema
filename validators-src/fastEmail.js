@@ -8,7 +8,7 @@ function fastEmailValidator(args, childValidators, data) {
   let type = typeof data;
 
   if(type !== "string") {
-    throw new Error("required Email (string): got " + type);
+    throw new Error(`Got ${type}, required Email (string)`);
   }
 
   data = data.trim().toLowerCase();

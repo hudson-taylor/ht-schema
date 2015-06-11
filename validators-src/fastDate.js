@@ -4,7 +4,7 @@
 function fastDateValidator(args, childValidators, data) {
 
   if(Object.prototype.toString.call(data) !== '[object Date]') {
-    throw new Error("required date, received (" + typeof data + ") " + data.toString());
+    throw new Error(`Got ${typeof data}, required Data`);
   }
 
   return data;

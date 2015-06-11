@@ -407,7 +407,7 @@ describe("Validator", function() {
       });
 
       schema.validate("hello", function(err) {
-        assert.equal(err.message, "must be an object, received string");
+        assert.equal(err.message, "Got string, required Object");
         done();
       });
 

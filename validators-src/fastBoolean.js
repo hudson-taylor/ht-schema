@@ -3,8 +3,10 @@
 
 function fastBoolValidator(args, childValidators, data) {
 
-  if(typeof data != "boolean") {
-    throw new Error("expected Boolean, got:" + typeof data);
+  let type = typeof data;
+
+  if(type != "boolean") {
+    throw new Error(`Got ${type}, required Boolean`);
   }
 
   return data;

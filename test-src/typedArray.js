@@ -39,7 +39,7 @@ describe("TypedArray validator", function() {
 
     assert.throws(function() {
       schema.validate([ "hello", 5 ]);
-    }, /Error validating element in position 0/);
+    }, /Error validating element schema\[0\]: Got string, required Number/);
 
   });
 

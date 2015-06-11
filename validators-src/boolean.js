@@ -9,7 +9,7 @@ function boolValidator(args, childValidators, data) {
     if(args.opt) {
       return DELETEKEY;
     }
-    throw new Error("required Boolean");
+    throw new Error("Got undefined, expected Boolean");
   }
 
   if(args.coerce) {
@@ -17,7 +17,7 @@ function boolValidator(args, childValidators, data) {
   }
 
   if(typeof data != "boolean") {
-    throw new Error("expected Boolean, got:" + typeof data);
+    throw new Error(`Got ${typeof data}, expected Boolean`);
   }
 
   return data;

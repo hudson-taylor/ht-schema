@@ -11,18 +11,22 @@ function numValidator(args, childValidators, data) {
     if(args.opt) {
       return DELETEKEY;
     }
-    throw new Error("required Number");
+    throw new Error(`Got undefined, required Number`);
   }
 
   let origType = typeof data;
   data = Number(data);
-  if(isNaN(data)) throw new Error("required Number, received " + origType);
+
+  if(isNaN(data)) throw new Error(`Got ${origType}, expected Number`);
+
   if(args.min && data < args.min) {
-    throw new Error("must be greater than " + args.min);
+    throw new Error(`Got ${data}, expected more than ${args.min}`);
   }
+
   if(args.max && data > args.max) {
-    throw new Error("must be less than or equal to " + args.max);
+    throw new Error(`Got ${data}, expected less than ${args.max}`);
   }
+
   return data;
 }
 

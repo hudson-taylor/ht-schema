@@ -11,19 +11,20 @@ function arrayValidator(args, childValidators, data, key) {
     if(args.opt) {
       return DELETEKEY;
     }
-    throw new Error("required Array");
+    let t = data === null ? 'null' : typeof data;
+    throw new Error(`Got ${t}, expected Array`);
   }
 
   if(typeof args.length == 'number' && data.length !== args.length) {
-    throw new Error("required array with " + args.length + " items, got: " + data.length);
+    throw new Error(`Got ${data.length} elements, expected ${args.length}`);
   }
 
   if(typeof args.minLength == 'number' && data.length < args.minLength) {
-    throw new Error("required array with minimum " + args.length + " items, got: " + data.length);
+    throw new Error(`Got ${data.length} elements, expected more than ${args.minLength}`);
   }
 
   if(typeof args.maxLength == 'number' && data.length > args.maxLength) {
-    throw new Error("required array with maximum " + args.length + " items, got: " + data.length);
+    throw new Error(`Got ${data.length} elements, expected less than ${args.maxLength}`);
   }
 
   for(let i = 0; i < data.length; i++) {
@@ -34,7 +35,7 @@ function arrayValidator(args, childValidators, data, key) {
     for(let v = 0; v < childValidators.length; v++) {
       if(!matched) {
         try {
-          out.push(childValidators[v].parse(val, key + "[" + i + "]"));
+          out.push(childValidators[v].parse(val, `${key}[${i}]`));
           matched = true;
           break;
         } catch(e) {
@@ -44,8 +45,8 @@ function arrayValidator(args, childValidators, data, key) {
     }
 
     if(!matched) {
-      //We couldn't parse data[i] !
-      throw new Error("No matching validator for " + key + "[" + i + "]");
+      // We couldn't parse data[i] !
+      throw new Error(`Error validating element ${key}[${i}]: ${e.message}`);
     }
   }
   return out;
