@@ -326,6 +326,44 @@ describe("Validator", function() {
 
   });
 
+  describe("generate", function() {
+
+    it("should regenerate schema from Schema#document() result", function() {
+
+      let schema = s.Object({
+        hello: s.Object({
+          world: s.Array([ s.Boolean(), s.Number() ])
+        })
+      });
+
+      let schemaJSON = schema.document();
+
+      let newSchema = s.generate(schemaJSON);
+
+      newSchema.validate({
+        hello: {
+          world: [ true ]
+        }
+      });
+
+      assert.throws(function() {
+        newSchema.validate(true);
+      });
+
+    });
+
+    it("should fail if validator type has not been loaded", function() {
+
+      s.generate({ name: "Object" });
+
+      assert.throws(function() {
+        s.generate({ name: "unknown" });
+      }, /Unknown validator type: unknown/);
+
+    });
+
+  });
+
   describe("comment", function() {
 
     it("should allow adding comment to validator", function() {

@@ -69,6 +69,35 @@ function makeValidator(validatorName, validatorFunc) {
   };
 }
 
+function generateValidator(json) {
+
+  let { name, args = {}, children } = json;
+
+  let type = validators[name];
+
+  if(!type) {
+    throw new Error("Unknown validator type: " + name);
+  }
+
+  let params = [ args ];
+
+  if(Array.isArray(children)) {
+    params.push(children.map(function(child) {
+      return generateValidator(child);
+    }));
+  } else if(typeof children === 'object') {
+    for(let k in children) {
+      children[k] = generateValidator(children[k]);
+    }
+    params.push(children);
+  }
+
+  let validator = type(...params);
+
+  return validator;
+
+}
+
 function Validator(name, validatorFunc, args, childValidators) {
 
   this.$name          = name;
@@ -180,4 +209,5 @@ Validator.prototype.comment = function(comment) {
 }
 
 validators.makeValidator = makeValidator;
+validators.generate = generateValidator;
 module.exports = validators;
