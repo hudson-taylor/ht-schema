@@ -157,8 +157,11 @@ Validator.prototype.validate = function(data, key, callback) {
 };
 
 Validator.prototype.document = function() {
+  // generate function will automatically make them
+  // fast again if need be.
+  let name = this.$name.replace(/^Fast/, '');
   let obj = {
-    name: this.$name,
+    name,
     args: this.$args
   }
   let children = {};

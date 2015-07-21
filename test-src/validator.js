@@ -266,7 +266,7 @@ describe("Validator", function() {
                 args: {},
                 children: {
                   three: {
-                    name: "FastString",
+                    name: "String",
                     args: {}
                   },
                   four: {
@@ -291,11 +291,11 @@ describe("Validator", function() {
         args: {},
         children: [
           {
-            name: "FastString",
+            name: "String",
             args: {}
           },
           {
-            name: "FastNumber",
+            name: "Number",
             args: {}
           }
         ]
@@ -312,14 +312,25 @@ describe("Validator", function() {
         args: {},
         children: [
           {
-            name: "FastString",
+            name: "String",
             args: {}
           },
           {
-            name: "FastNumber",
+            name: "Number",
             args: {}
           }
         ]
+      });
+
+    });
+
+    it("should replace validators starting with Fast with their non-fast equivalent", function() {
+
+      let schema = s.String();
+
+      assert.deepEqual(schema.document(), {
+        name: "String",
+        args: {}
       });
 
     });
@@ -377,7 +388,7 @@ describe("Validator", function() {
         args: {},
         children: {
           hello: {
-            name: "FastString",
+            name: "String",
             args: {},
             comment: "hello"
           }
