@@ -38,7 +38,15 @@ function makeValidator(validatorName, validatorFunc) {
       if((validatorFunc.hasChildValidators == 'array' && Array.isArray(arg)) || (typeof arg === validatorFunc.hasChildValidators)) {
 
         if(Object.keys(arg).every(function(k) {
-          return arg[k].hasOwnProperty('$validators');
+          let t = arg[k];
+          let _v = t ? validators[t.name] : null;
+          if(_v) {
+            let v = _v();
+            t = v;
+            arg[k] = v;
+            return true;
+          }
+          return t.hasOwnProperty('$validators');
         })) {
           childValidators = arg;
           continue;

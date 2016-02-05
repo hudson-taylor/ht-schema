@@ -496,4 +496,28 @@ describe("Validator", function() {
 
   });
 
+  describe("Primitives", function() {
+
+    it("should allow passing primitives as object key values", function() {
+
+      let schema = s.Object({
+        bool:   Boolean,
+        string: String,
+        num:    Number
+      });
+
+      schema.validate({
+        bool:   true,
+        string: "hello world",
+        num:    5
+      });
+
+      assert.equal(schema.$validators.bool.$name, 'FastBoolean');
+      assert.equal(schema.$validators.string.$name, 'FastString');
+      assert.equal(schema.$validators.num.$name, 'FastNumber');
+
+    });
+
+  });
+
 });
