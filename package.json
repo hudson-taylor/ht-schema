@@ -42,11 +42,11 @@
   "homepage": "https://github.com/hudson-taylor/ht-schema",
   "dependencies": {
     "clone": "^1.0.1",
-    "isemail": "^1.2.0",
+    "isemail": "^2.1.0",
     "sanitizer": "^0.1.2"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
+    "babel": "^6.5.2",
     "coveralls": "^2.11.3",
     "istanbul": "^0.4.0",
     "karma": "^0.13.14",
