@@ -9,15 +9,29 @@ const clone = require("clone");
 
 const merge = require("./merge");
 
-const validatorsPath = path.resolve(__dirname, "../validators");
-
-const files = fs.readdirSync(validatorsPath);
+// Manually list files here
+// so ht-schema works with browserify.
+const files = [
+  require('../validators/any'),
+  require('../validators/array'),
+  require('../validators/boolean'),
+  require('../validators/date'),
+  require('../validators/email'),
+  require('../validators/fastBoolean'),
+  require('../validators/fastDate'),
+  require('../validators/fastEmail'),
+  require('../validators/fastNumber'),
+  require('../validators/fastString'),
+  require('../validators/number'),
+  require('../validators/object'),
+  require('../validators/string'),
+  require('../validators/typedArray')
+];
 
 let validators = {};
 
 files.forEach(function(file) {
-  const t = require(path.join(validatorsPath, file));
-  validators[t.name] = makeValidator(t.name, t.fn);
+  validators[file.name] = makeValidator(file.name, file.fn);
 });
 
 function makeValidator(validatorName, validatorFunc) {
