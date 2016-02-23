@@ -3,8 +3,8 @@
 
 const sanitizer = require("sanitizer");
 
-const merge     = require("../lib/merge");
-const DELETEKEY = require("../lib/deleteKey");
+const merge     = require("../merge");
+const DELETEKEY = require("../deleteKey");
 
 function strValidator(args, childValidators, data) {
 

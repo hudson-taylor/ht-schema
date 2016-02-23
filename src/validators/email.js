@@ -3,8 +3,8 @@
 
 const isemail = require("isemail");
 
-const merge     = require("../lib/merge");
-const DELETEKEY = require("../lib/deleteKey");
+const merge     = require("../merge");
+const DELETEKEY = require("../deleteKey");
 
 function emailValidator(args, childValidators, data) {
   args = merge(args, { normalize: true });

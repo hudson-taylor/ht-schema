@@ -1,7 +1,7 @@
 
 "use strict";
 
-const DELETEKEY = require("../lib/deleteKey");
+const DELETEKEY = require("../deleteKey");
 
 function arrayValidator(args, childValidators, data, key) {
 

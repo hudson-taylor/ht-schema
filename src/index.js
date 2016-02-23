@@ -12,20 +12,20 @@ const merge = require("./merge");
 // Manually list files here
 // so ht-schema works with browserify.
 const files = [
-  require('../validators/any'),
-  require('../validators/array'),
-  require('../validators/boolean'),
-  require('../validators/date'),
-  require('../validators/email'),
-  require('../validators/fastBoolean'),
-  require('../validators/fastDate'),
-  require('../validators/fastEmail'),
-  require('../validators/fastNumber'),
-  require('../validators/fastString'),
-  require('../validators/number'),
-  require('../validators/object'),
-  require('../validators/string'),
-  require('../validators/typedArray')
+  require('./validators/any'),
+  require('./validators/array'),
+  require('./validators/boolean'),
+  require('./validators/date'),
+  require('./validators/email'),
+  require('./validators/fastBoolean'),
+  require('./validators/fastDate'),
+  require('./validators/fastEmail'),
+  require('./validators/fastNumber'),
+  require('./validators/fastString'),
+  require('./validators/number'),
+  require('./validators/object'),
+  require('./validators/string'),
+  require('./validators/typedArray')
 ];
 
 let validators = {};

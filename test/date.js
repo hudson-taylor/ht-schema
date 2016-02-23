@@ -2,7 +2,7 @@
 "use strict";
 
 const assert = require("assert");
-const s      = require("../");
+const s      = require("../src");
 
 describe("Date validator", function() {
   let old       = new Date("1979");
