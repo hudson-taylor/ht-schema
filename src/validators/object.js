@@ -1,8 +1,8 @@
 
 "use strict";
 
-const merge     = require("../lib/merge");
-const DELETEKEY = require("../lib/deleteKey");
+const merge     = require("../merge");
+const DELETEKEY = require("../deleteKey");
 
 function objValidator(args, childValidators, data, key) {
 

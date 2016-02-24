@@ -3,7 +3,7 @@
 
 import assert from "assert";
 
-import s from "../";
+import s from "../src";
 
 describe("String validator", function() {
   let shortString = "Hi!";

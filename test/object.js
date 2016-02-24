@@ -2,7 +2,7 @@
 "use strict";
 
 const assert = require("assert");
-const s      = require("../");
+const s      = require("../src");
 
 describe("Object validator", function() {
 

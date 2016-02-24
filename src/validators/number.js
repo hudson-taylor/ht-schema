@@ -1,8 +1,8 @@
 
 "use strict";
 
-const merge     = require("../lib/merge");
-const DELETEKEY = require("../lib/deleteKey");
+const merge     = require("../merge");
+const DELETEKEY = require("../deleteKey");
 
 function numValidator(args, childValidators, data) {
   args = merge(args, { min: null, max: null });

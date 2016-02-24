@@ -1,7 +1,7 @@
 
 "use strict";
 
-const DELETEKEY = require("../lib/deleteKey");
+const DELETEKEY = require("../deleteKey");
 
 function anyValidator(args, childValidators, data) {
 
@@ -13,7 +13,7 @@ function anyValidator(args, childValidators, data) {
   }
 
   return data;
-    
+
 }
 
 export default {

@@ -8,7 +8,7 @@ function fastDateValidator(args, childValidators, data) {
   }
 
   return data;
-    
+
 }
 
 export default {
