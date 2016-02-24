@@ -1,7 +1,4 @@
-
-"use strict";
-
-const DELETEKEY = require("../deleteKey");
+import DELETEKEY from "../deleteKey";
 
 function arrayValidator(args, childValidators, data, key) {
 

@@ -1,10 +1,7 @@
+import sanitizer from "sanitizer";
 
-"use strict";
-
-const sanitizer = require("sanitizer");
-
-const merge     = require("../merge");
-const DELETEKEY = require("../deleteKey");
+import merge     from "../merge";
+import DELETEKEY from "../deleteKey";
 
 function strValidator(args, childValidators, data) {
 

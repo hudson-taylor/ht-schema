@@ -1,6 +1,3 @@
-
-"use strict";
-
 function fastDateValidator(args, childValidators, data) {
 
   if(Object.prototype.toString.call(data) !== '[object Date]') {

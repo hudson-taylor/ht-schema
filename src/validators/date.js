@@ -1,8 +1,5 @@
-
-"use strict";
-
-const merge     = require("../merge");
-const DELETEKEY = require("../deleteKey");
+import merge     from "../merge";
+import DELETEKEY from "../deleteKey";
 
 function dateValidator(args, childValidators, data) {
 

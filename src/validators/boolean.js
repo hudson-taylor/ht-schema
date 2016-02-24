@@ -1,7 +1,4 @@
-
-"use strict";
-
-const DELETEKEY = require("../deleteKey");
+import DELETEKEY from "../deleteKey";
 
 function boolValidator(args, childValidators, data) {
 

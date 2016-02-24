@@ -1,6 +1,3 @@
-
-"use strict";
-
 function merge() {
   // Merge objects passed as arguments, left to right precidence.
   let result = {};

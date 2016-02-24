@@ -1,6 +1,3 @@
-
-"use strict";
-
 function fastBoolValidator(args, childValidators, data) {
 
   let type = typeof data;

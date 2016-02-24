@@ -1,8 +1,5 @@
-
-"use strict";
-
-const merge     = require("../merge");
-const DELETEKEY = require("../deleteKey");
+import merge     from "../merge";
+import DELETEKEY from "../deleteKey";
 
 function numValidator(args, childValidators, data) {
   args = merge(args, { min: null, max: null });

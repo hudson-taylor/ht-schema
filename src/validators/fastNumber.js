@@ -1,6 +1,3 @@
-
-"use strict";
-
 function fastNumberValidator(args, childValidators, data) {
 
   let d = Number(data);

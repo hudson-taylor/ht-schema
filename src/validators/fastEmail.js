@@ -1,7 +1,4 @@
-
-"use strict";
-
-const isemail = require("isemail");
+import isemail from "isemail";
 
 function fastEmailValidator(args, childValidators, data) {
 

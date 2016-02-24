@@ -1,13 +1,10 @@
+import fs   from "fs";
+import path from "path";
+import util from "util";
 
-"use strict";
+import clone from "clone";
 
-const fs   = require("fs");
-const path = require("path");
-const util = require("util");
-
-const clone = require("clone");
-
-const merge = require("./merge");
+import merge from "./merge";
 
 // Manually list files here
 // so ht-schema works with browserify.
@@ -127,11 +124,11 @@ function Validator(name, validatorFunc, args, childValidators) {
   this.$args          = args;
   this.$validators    = childValidators;
 
-  const getValidatorFn = function(k) {
-    return function() {
+  const getValidatorFn = (k) => {
+    return () => {
       return this.$validators[k];
-    }.bind(this);
-  }.bind(this);
+    }
+  }
 
   this.keys = {};
 

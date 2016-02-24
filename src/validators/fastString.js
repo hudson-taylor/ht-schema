@@ -1,6 +1,3 @@
-
-"use strict";
-
 function fastStrValidator(args, childValidators, data) {
 
   // If we have no data, and this value is not optional, throw
