@@ -110,11 +110,11 @@ describe("Array validator", function() {
 
     assert.throws(function() {
       schema.validate([ "hello" ]);
-    });
+    }, /Error validating element schema\[0\]: Got string, required Boolean/);
 
     assert.throws(function() {
       schema.validate([ true, false, "three" ]);
-    });
+    }, /Error validating element schema\[2\]: Got string, required Boolean/);
 
   });
 

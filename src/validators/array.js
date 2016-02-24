@@ -31,6 +31,7 @@ function arrayValidator(args, childValidators, data, key) {
 
     let val     = data[i];
     let matched = false;
+    let err;
 
     for(let v = 0; v < childValidators.length; v++) {
       if(!matched) {
@@ -40,13 +41,14 @@ function arrayValidator(args, childValidators, data, key) {
           break;
         } catch(e) {
           // Pass!
+          err = e;
         }
       }
     }
 
     if(!matched) {
       // We couldn't parse data[i] !
-      throw new Error(`Error validating element ${key}[${i}]: ${e.message}`);
+      throw new Error(`Error validating element ${key}[${i}]: ${err.message}`);
     }
   }
   return out;
