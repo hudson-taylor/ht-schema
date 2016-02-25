@@ -1,13 +1,15 @@
 language: node_js
 node_js:
-  - "0.10"
-  - "0.12"
-  - "5"
-
+- '0.10'
+- '0.12'
+- '4'
+- '5'
 before_install:
-  - "npm install"
+- npm install
 after_success:
-  - "npm run coverage"
-  - "npm run push-coverage"
+- npm run coverage
+- npm run push-coverage
 notifications:
-  irc: "chat.freenode.net#htjs"
+  irc: chat.freenode.net#htjs
+  slack:
+    secure: YsIvF/ENz2H0CRa6oQuz4hjRAvTDg/zsRwrk0prmdwR0OB86vQpmFg3mbXodh6eD977rqisMvhotMhv00Zg9Q6hvYd+iiS3jUPY+s+KNNp9aW4Oj5xP4pogE490i74bjvRLRzRMhwFfnVV725xENrLvU9PLuzqbWF+3Sfc6ke3Y=
