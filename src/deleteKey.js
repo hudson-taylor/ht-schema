@@ -1,4 +1,4 @@
-// Identifies a validator that wishes its key/value 
+// Identifies a validator that wishes its key/value
 // to be obliterated from results.
 
 const DELETEKEY = { htDeleteKey: true };
