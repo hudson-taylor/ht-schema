@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "semistandard && ./node_modules/.bin/mocha -r babel-register --recursive --reporter spec --bail --check-leaks",
+    "pretest": "standard",
+    "test": "./node_modules/.bin/mocha -r babel-register --recursive --reporter spec --bail --check-leaks",
     "build": "node ./node_modules/.bin/babel src -d lib",
     "coverage": "./node_modules/.bin/nyc --reporter=lcov npm test",
     "push-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
@@ -55,6 +56,6 @@
     "karma": "^0.13.14",
     "mocha": "^2.3.3",
     "nyc": "^5.6.0",
-    "semistandard": "^7.0.5"
+    "standard": "^8.5.0"
   }
 }

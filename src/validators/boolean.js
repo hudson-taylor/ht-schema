@@ -1,27 +1,27 @@
-import DELETEKEY from "../deleteKey";
+import DELETEKEY from "../deleteKey"
 
 function boolValidator(args, childValidators, data) {
 
   if(data === undefined) {
     if(args.opt) {
-      return DELETEKEY;
+      return DELETEKEY
     }
-    throw new Error("Got undefined, expected Boolean");
+    throw new Error("Got undefined, expected Boolean")
   }
 
   if(args.coerce) {
-    return Boolean(data);
+    return Boolean(data)
   }
 
   if(typeof data != "boolean") {
-    throw new Error(`Got ${typeof data}, expected Boolean`);
+    throw new Error(`Got ${typeof data}, expected Boolean`)
   }
 
-  return data;
+  return data
 
 }
 
 export default {
   name: "Boolean",
   fn:   boolValidator
-};
+}

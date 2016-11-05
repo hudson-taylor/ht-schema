@@ -1,19 +1,19 @@
-import DELETEKEY from "../deleteKey";
+import DELETEKEY from "../deleteKey"
 
 function anyValidator(args, childValidators, data) {
 
   if(data === undefined) {
     if(args.opt) {
-      return DELETEKEY;
+      return DELETEKEY
     }
-    throw new Error("required Any value");
+    throw new Error("required Any value")
   }
 
-  return data;
+  return data
 
 }
 
 export default {
   name: "Any",
   fn:   anyValidator
-};
+}

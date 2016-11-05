@@ -1,16 +1,16 @@
 function fastNumberValidator(args, childValidators, data) {
 
-  let d = Number(data);
+  let d = Number(data)
 
   if(isNaN(d)) {
-    throw new Error(`Got ${typeof data}, required Number`);
+    throw new Error(`Got ${typeof data}, required Number`)
   }
 
-  return d;
+  return d
 
 }
 
 export default {
   name: "FastNumber",
   fn:   fastNumberValidator
-};
+}
