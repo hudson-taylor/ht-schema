@@ -10,7 +10,7 @@ function fastEmailValidator(args, childValidators, data) {
 
   data = data.trim().toLowerCase()
 
-  if(!isemail.validate(data)) {
+  if(!isemail(data)) {
     throw new Error("Invalid Email: " + data)
   }
 

@@ -25,7 +25,7 @@ function emailValidator(args, childValidators, data) {
     data = data.toLowerCase()
   }
 
-  if(!isemail.validate(data)) {
+  if(!isemail(data)) {
     throw new Error("Invalid Email: " + data)
   }
 
