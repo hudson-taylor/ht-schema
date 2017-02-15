@@ -140,7 +140,7 @@ Validator.prototype.validate = function (data, key, callback) {
   }
   function fin (err, res) {
     if (callback) {
-      return setImmediate(() => callback(err, res))
+      return process.nextTick(() => callback(err, res))
     } else {
       if (err) {
         throw err
