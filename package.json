@@ -1,6 +1,6 @@
 {
   "name": "ht-schema",
-  "version": "3.2.3",
+  "version": "3.3.0",
   "description": "ht-schema",
   "main": "lib/index.js",
   "directories": {
