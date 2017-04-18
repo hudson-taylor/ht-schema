@@ -64,16 +64,17 @@ function objValidator(args, childValidators, data, key) {
 
   // Check that all required schema fields have been provided
   for(let k in childValidators) {
-    if(k == "*") continue
+    if(k === "*") continue
     // Handle renamed attrs
     let bits = k.split(" ")
-    if(bits.length == 3) k = bits[0]
+    if(bits.length === 3) k = bits[0]
     if(!seen[k]) {
       let v, keyId
       try {
         v = validator(k)
         keyId = `${key}.${v[0]}`
-        out[v[0]] = v[1].parse(v[1].$args.default, keyId)
+        const defaultValue = typeof v[1].$args.default === 'function' ? v[1].$args.default() : v[1].$args.default
+        out[v[0]] = v[1].parse(defaultValue, keyId)
       } catch(e) {
         throw new Error(`Missing attribute '${key}.${v[0]}': ${e.message}`)
       }
@@ -81,7 +82,7 @@ function objValidator(args, childValidators, data, key) {
   }
   // Delete any keys that have a value of {htDeleteKey:true}
   Object.keys(out).forEach(function(k) {
-    if(out[k] !== null && typeof out[k] == "object" && out[k].htDeleteKey) {
+    if(out[k] !== null && typeof out[k] === "object" && out[k].htDeleteKey) {
       delete out[k]
     }
   })

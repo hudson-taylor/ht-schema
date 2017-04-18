@@ -124,6 +124,16 @@ describe("Object validator", function() {
     assert.deepEqual(catSchema.validate({}), { name: "something" });
   });
 
+  it ("should use callback to get default value if value is missing", function() {
+    const generateName = () => {
+      return 'generated name'
+    }
+    const schema = s.Object({}, {
+      name: s.String({ default: generateName })
+    })
+    assert.deepEqual(schema.validate({}), { name: "generated name" })
+  })
+
   it("should be composible", function() {
 
     let catSchema = s.Object({ opt: true }, {
