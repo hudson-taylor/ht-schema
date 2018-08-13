@@ -168,4 +168,16 @@ describe("Object validator", function() {
 
   });
 
+  it("should throw an error if an optional child array validator fails", function() {
+
+    let schema = s.Object({ key: s.Array([ s.String() ], { opt: true }) });
+
+    assert.throws(function() {
+      schema.validate({
+        key: 'hello'
+      });
+    }, /Failed to parse schema.key: Got string, expected Array/);
+
+  });
+
 });
