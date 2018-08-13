@@ -5,8 +5,10 @@ function arrayValidator(args, childValidators, data, key) {
   let out = []
 
   if(!Array.isArray(data)) {
-    if(args.opt) {
-      return DELETEKEY
+    if(data === null || data === undefined) {
+      if(args.opt) {
+        return DELETEKEY
+      }
     }
     let t = data === null ? 'null' : typeof data
     throw new Error(`Got ${t}, expected Array`)
